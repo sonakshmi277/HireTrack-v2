@@ -1,17 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const Admin=require("../Models/Admin");
+const Admin = require("../Models/Admin");
 
-router.get("/", async (req, res) => {
-    try{
-        const adminExists=await Admin.findOne({company:"Cognizant"});
-        if(adminExists){
-            res.json("Yes");
+router.post("/", async (req, res) => {
+
+    try {
+        const admin = await Admin.findOne({
+            company: req.body.company,
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        if (admin) {
+            return res.json("Yes");
+        } else {
+            return res.json("No");
         }
-        return res.json("No");
-    }catch(err){
-         res.status(500).json({ error: err.message });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
     }
-})
+});
 
 module.exports = router;
