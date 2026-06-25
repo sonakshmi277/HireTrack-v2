@@ -12,18 +12,22 @@ function Admin() {
             return;
         }
 
-        fetch("http://localhost:5000/adminData")
+        fetch("http://localhost:5000/adminData", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
 
-                if (data.company === formData.company && data.email === formData.email && data.password === formData.password) {
+                if (data === "Yes") {
                     console.log("Correct admin");
+                } else {
+                    console.log("Hey spam person");
                 }
-                else {
-                    console.log("Hey spam person")
-                }
-
             })
             .catch(err => console.log(err));
 
