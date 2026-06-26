@@ -9,6 +9,7 @@ const adminRouter = require("./Routers/adminD");
 const userRouter=require("./Routers/UserD");
 const Admin = require("./Models/Admin");
 const User=require("./Models/User");
+const auth=require("./middlewares/auth")
 app.use("/adminData", adminRouter)
 app.use("/signIn",userRouter)
 
@@ -47,6 +48,14 @@ app.post("/newLogIn", async (req,res)=>{
 });
 
 addAdmin();
+
+app.get("/adminHomePage",auth,(req,res)=>{
+  res.status(200).json({
+    message:"Welcome admin",
+    admin:req.user
+  });
+})
+
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })
