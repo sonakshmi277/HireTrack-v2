@@ -6,8 +6,11 @@ app.use(cors())
 app.use(express.json());
 const mongoose = require("mongoose");
 const adminRouter = require("./Routers/adminD");
+const userRouter=require("./Routers/UserD");
 const Admin = require("./Models/Admin");
+const User=require("./Models/User");
 app.use("/adminData", adminRouter)
+app.use("/signIn",userRouter)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
@@ -29,6 +32,19 @@ const addAdmin = async () => {
     console.log("Admin created");
   }
 };
+
+app.post("/newLogIn", async (req,res)=>{
+  try{
+    await User.create({
+      email:req.body.email,
+      password:req.body.password
+    });
+    console.log("User details entered");
+    return res.json("Yes");
+  }catch(err){
+    return res.json("No");
+  }
+});
 
 addAdmin();
 app.listen(5000, () => {

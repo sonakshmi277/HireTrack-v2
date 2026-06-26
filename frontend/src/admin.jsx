@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-
+import { useNavigate } from 'react-router-dom';
 function Admin() {
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({ company: "", email: "", password: "" });
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,15 +22,20 @@ function Admin() {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.token) {
+                    console.log("Login successful")
+                    localStorage.setItem("token", data.token);
+                    console.log("token saved", data.token)
+                    navigate("/adminHomePage")
 
-                if (data === "Yes") {
-                    console.log("Correct admin");
-                } else {
-                    console.log("Hey spam person");
+                }
+                else {
+                    console.log("Invalid admin")
                 }
             })
             .catch(err => console.log(err));
+
+        
 
     };
     const handleChange = (e) => {
@@ -46,7 +52,7 @@ function Admin() {
             <form onSubmit={handleSubmit}>
                 <input type="text" name="company" placeholder="Enter company name" value={formData.company} onChange={handleChange} />
                 <input type="text" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
-                <input type="text" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
+                <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
                 <button type="submit">Login</button>
             </form>
         </div>
