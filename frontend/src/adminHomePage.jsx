@@ -12,7 +12,7 @@ function AdminHomePage() {
       }
     )
     .then(res=>{
-      if(res.status===401){
+      if(res.status===401 || res.status===403){
         navigate("/admin");
         return;
       }
