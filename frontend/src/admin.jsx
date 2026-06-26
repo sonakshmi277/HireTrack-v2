@@ -26,7 +26,7 @@ function Admin() {
                     console.log("Login successful")
                     localStorage.setItem("token", data.token);
                     console.log("token saved", data.token)
-                    navigate("/adminHomePage")
+                    return navigate("/adminHomePage");
 
                 }
                 else {
