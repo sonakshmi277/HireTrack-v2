@@ -67,7 +67,7 @@ function AdminHomePage() {
       </div>
 
       <div className="content">
-        Welcome to HireTrack
+        <h1>Welcome to HireTrack</h1>
       </div>
     </div>
   )

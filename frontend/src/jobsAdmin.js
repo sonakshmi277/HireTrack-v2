@@ -1,8 +1,15 @@
 import React from 'react'
-
+import "./jobAdmin.css";
 function JobsAdmin() {
   return (
-    <div>J</div>
+    <div className='container'>
+        <div>
+            Posted jobs
+        </div>
+        <div>
+            Post new job
+        </div>
+    </div>
   )
 }
 
