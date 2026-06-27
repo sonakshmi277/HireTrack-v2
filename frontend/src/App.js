@@ -5,7 +5,8 @@ import Home from "./home";
 import NewLogin from "./SignFolder/NewLogin";
 import SignIn from "./SignFolder/SignIn";
 import AdminHomePage from "./adminHomePage";
-
+import ApplicantsAdmin from "./applicantsAdmin";
+import JobsAdmin from "./jobsAdmin";
 const router=createBrowserRouter([
   {
     path:"/",
@@ -47,6 +48,20 @@ const router=createBrowserRouter([
     element:
     <div>
       <AdminHomePage/>
+    </div>
+  },
+  {
+    path:"/jobsAdmin",
+    element:
+    <div>
+      <JobsAdmin/>
+    </div>
+  },
+  {
+    path:"/applicantsAdmin",
+    element:
+    <div>
+      <ApplicantsAdmin/>
     </div>
   }
 ]);
