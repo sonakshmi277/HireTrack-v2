@@ -38,6 +38,7 @@ function AdminHomePage() {
     navigate("/applicantsAdmin")
   }
   function handleLogOutClick(){
+    localStorage.removeItem("token");
     navigate("/")
   }
   return (

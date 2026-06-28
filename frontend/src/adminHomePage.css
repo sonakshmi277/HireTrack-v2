@@ -23,12 +23,11 @@
   gap: 15px;
   padding: 12px;
   cursor: pointer;
-  color: white;
+  color: black;
 }
 
 .text {
   opacity: 0;
-  white-space: nowrap;
   transition: 0.2s ease;
 }
 

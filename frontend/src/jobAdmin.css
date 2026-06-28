@@ -1,4 +1,16 @@
-.container{
+.options{
     display:flex;
     justify-content: space-around;
+    background-color: yellow;
+}
+.options div{
+    background-color: aqua;
+    padding: 15px;
+    width:fit-content
+}
+.options div:hover{
+    background-color: blue;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border-radius: 10px;
 }

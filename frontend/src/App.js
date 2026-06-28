@@ -7,6 +7,7 @@ import SignIn from "./SignFolder/SignIn";
 import AdminHomePage from "./adminHomePage";
 import ApplicantsAdmin from "./applicantsAdmin";
 import JobsAdmin from "./jobsAdmin";
+import JobPostedAdmin from "./jobPostedAdmin";
 const router=createBrowserRouter([
   {
     path:"/",
@@ -62,6 +63,13 @@ const router=createBrowserRouter([
     element:
     <div>
       <ApplicantsAdmin/>
+    </div>
+  },
+  {
+    path:"/jobPostedAdmin",
+    element:
+    <div>
+      <JobPostedAdmin/>
     </div>
   }
 ]);
