@@ -43,14 +43,15 @@ app.post("/newLogIn", async (req, res) => {
       password: req.body.password
     });
     console.log("Info saved in db");
-    const payload={email:req.body.email}
-    const token=jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1h'})
-    return res.status(200).json({token})
-    
-   
+    const payload = { email: req.body.email }
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
+    return res.status(200).json({ token })
+
+
   } catch (err) {
     return res.status(500).json({
-            error: err.message});
+      error: err.message
+    });
   }
 });
 
@@ -76,26 +77,26 @@ app.post("/postNewJob", auth, async (req, res) => {
       jobDesc: req.body.jobDesc
     });
     console.log("Job update created");
-    return res.status(200).json({ message: "Job posted successfully"});
+    return res.status(200).json({ message: "Job posted successfully" });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 });
 
-app.get("/UserPages/newJobUser",auth, (req,res)=>{
+app.get("/UserPages/newJobUser", auth, (req, res) => {
   res.status(200).json({
     message: `Welcome ${req.user}`,
-    user:req.user
+    user: req.user
   });
 })
 
-app.get("/availJobs", async(req,res)=>{
-  try{
-    const jobs=await Job.find();
-    console.log("data found",{jobs});
+app.get("/availJobs", async (req, res) => {
+  try {
+    const jobs = await Job.find();
+    console.log("data found", { jobs });
     res.status(200).json(jobs);
-  }catch(err){
-    res.status(500).json({message:"error fetching jobs"});
+  } catch (err) {
+    res.status(500).json({ message: "error fetching jobs" });
   }
 })
 app.listen(5000, () => {
