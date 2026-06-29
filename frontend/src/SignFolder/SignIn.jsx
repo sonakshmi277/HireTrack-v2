@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-
+import { useNavigate } from 'react-router-dom';
 function SignIn() {
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,7 +21,8 @@ function SignIn() {
                 if (data.token) {
                     console.log("Sign In successful");
                     localStorage.setItem("token",data.token);
-                    console.log("token saved", data.token)
+                    console.log("token saved", data.token);
+                    navigate("/UserPages/UserHomePage")
                 }
                 else {
                     console.log("Invalid user")

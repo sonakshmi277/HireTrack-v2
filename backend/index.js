@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express")
@@ -41,12 +42,18 @@ app.post("/newLogIn", async (req, res) => {
       email: req.body.email,
       password: req.body.password
     });
-    console.log("User details entered");
-    return res.json("Yes");
+    console.log("Info saved in db");
+    const payload={email:req.body.email}
+    const token=jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1h'})
+    return res.status(200).json({token})
+    
+   
   } catch (err) {
-    return res.json("No");
+    return res.status(500).json({
+            error: err.message});
   }
 });
+
 
 addAdmin();
 
@@ -74,6 +81,23 @@ app.post("/postNewJob", auth, async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 });
+
+app.get("/UserPages/newJobUser",auth, (req,res)=>{
+  res.status(200).json({
+    message: `Welcome ${req.user}`,
+    user:req.user
+  });
+})
+
+app.get("/availJobs", async(req,res)=>{
+  try{
+    const jobs=await Job.find();
+    console.log("data found",{jobs});
+    res.status(200).json(jobs);
+  }catch(err){
+    res.status(500).json({message:"error fetching jobs"});
+  }
+})
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })

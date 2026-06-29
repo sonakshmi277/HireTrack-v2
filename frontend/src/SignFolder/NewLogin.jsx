@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function NewLogin() {
+    const navigate=useNavigate();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,8 +22,11 @@ function NewLogin() {
         })
             .then(res => res.json())
             .then(data => {
-                if (data === "Yes") {
+                if (data.token) {
                     console.log("Data saved successfully")
+                    localStorage.setItem("token", data.token)
+                    console.log("token saved", data.token)
+                    return navigate("/UserPages/UserHomePage")
                 }
                 else {
                     console.log("There's a problem, data not saved")

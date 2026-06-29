@@ -17,7 +17,7 @@ function PostNewJobAdmin() {
         console.log(token);
         fetch("http://localhost:5000/postNewJob", {
             method: "POST",
-            headers: { authorization: token, "Content-Type": "application/json", },
+            headers: { authorization: token, "Content-Type": "application/json" },
             body: JSON.stringify(formData)
         })
             .then(res => {

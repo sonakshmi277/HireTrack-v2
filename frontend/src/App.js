@@ -8,6 +8,10 @@ import AdminHomePage from "./adminHomePage";
 import ApplicantsAdmin from "./applicantsAdmin";
 import JobsAdmin from "./jobsAdmin";
 import JobPostedAdmin from "./jobPostedAdmin";
+import UserHomePage from "./UserPages/UserHomePage";
+import NewJobUser from "./UserPages/newJobUser";
+import JobUser from "./UserPages/jobUser";
+
 const router=createBrowserRouter([
   {
     path:"/",
@@ -70,6 +74,27 @@ const router=createBrowserRouter([
     element:
     <div>
       <JobPostedAdmin/>
+    </div>
+  },
+  {
+    path:"/UserPages/UserHomePage",
+    element:
+    <div>
+      <UserHomePage/>
+    </div>
+  },
+   {
+    path:"/UserPages/newJobUser",
+    element:
+    <div>
+      <NewJobUser/>
+    </div>
+  },
+   {
+    path:"/UserPages/jobUser",
+    element:
+    <div>
+      <JobUser/>
     </div>
   }
 ]);
