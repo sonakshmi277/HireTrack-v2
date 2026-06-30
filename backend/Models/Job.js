@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URI)
-    .then(console.log("MongoDB conn"))
+    .then(()=>console.log("MongoDB conn"))
     .catch((err) => console.log(err))
 
 const jobs=new mongoose.Schema({
@@ -20,5 +20,5 @@ const jobs=new mongoose.Schema({
 
 })
 
-const Job=mongoose.model("job",jobs)
+const Job=mongoose.model("Job",jobs)
 module.exports=Job;

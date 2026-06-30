@@ -44,7 +44,7 @@ function PostNewJobAdmin() {
                         yearsOfExp: "",
                         jobDesc: ""
                     });
-                    navigate("/jobPostedAdmin");
+                    
                 }
             })
             .catch((err) => console.log(err));

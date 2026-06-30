@@ -8,8 +8,10 @@ app.use(express.json());
 const mongoose = require("mongoose");
 const adminRouter = require("./Routers/adminD");
 const userRouter = require("./Routers/UserD");
+const upload = require("./config/multerResume")
 const Admin = require("./Models/Admin");
 const User = require("./Models/User");
+const applicant = require("./Models/Application");
 const auth = require("./middlewares/auth")
 const Job = require("./Models/Job");
 app.use("/adminData", adminRouter)
@@ -97,6 +99,37 @@ app.get("/availJobs", async (req, res) => {
     res.status(200).json(jobs);
   } catch (err) {
     res.status(500).json({ message: "error fetching jobs" });
+  }
+})
+app.use("/uploads", express.static("uploads"));
+app.post("/uploadResume", auth, upload.single("resume"), async (req, res) => {
+  console.log(req.file);
+
+  try {
+    await applicant.create({
+      user_id: req.user.id,
+      job_id: req.body.job_id,
+      resume: req.file.path
+    });
+
+    return res.json({
+      message: "File uploaded successfully",
+      file: req.file
+    });
+
+  } catch (err) {
+    return res.json({ error: err.message });
+  }
+});
+
+app.get("/applidetail",auth,async (req,res)=>{
+  try{
+  const applicants=await applicant.find().populate("job_id").populate("user_id");
+  console.log("Data found");
+  res.status(200).json(applicants)
+
+  }catch(err){
+    res.status(500).json({error:err.message})
   }
 })
 app.listen(5000, () => {

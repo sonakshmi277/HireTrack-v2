@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import "./newJobUser.css"
 function NewJobUser() {
-    const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
+    const [jobs, setJobs] = useState([]);
+    const [file, setFile] = useState(null);
     function getTimeAgo(postedAt) {
         const now = new Date();
         const posted = new Date(postedAt);
@@ -17,7 +18,6 @@ function NewJobUser() {
         if (minutes < 60) {
             return `${minutes} min ago`;
         }
-
         if (hours < 24) {
             return `${hours} hr ago`;
         }
@@ -61,7 +61,19 @@ function NewJobUser() {
 
 
     }, []);
+    const handleUpload = async (file, jobId) => {
+        const formData = new FormData();
+        formData.append("resume", file);
+        formData.append("job_id", jobId);
 
+        await fetch("http://localhost:5000/uploadResume", {
+            method: "POST",
+            headers: {
+                authorization: localStorage.getItem("token")
+            },
+            body: formData
+        });
+    };
 
     return (
         <div>New jobs appear here
@@ -77,7 +89,9 @@ function NewJobUser() {
                             <h2>Years of experience: {job.yearsOfExp}</h2>
                             <h2>Job description: {job.jobDesc}</h2>
                             <p>Job Posted at: {getTimeAgo(job.postedAt)}</p>
-                            <button>Apply</button>
+                            <input type="file" onChange={(e) => { setFile(e.target.files[0]) }} />
+                            <button onClick={() => handleUpload(file, job._id)}>Apply</button>
+
                         </div>
                     )
                 })
