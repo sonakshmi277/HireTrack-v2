@@ -40,12 +40,12 @@ const addAdmin = async () => {
 
 app.post("/newLogIn", async (req, res) => {
   try {
-    await User.create({
+    const tb=await User.create({
       email: req.body.email,
       password: req.body.password
     });
     console.log("Info saved in db");
-    const payload = { email: req.body.email }
+    const payload = { email: req.body.email, _id:tb._id }
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
     return res.status(200).json({ token })
 
@@ -92,11 +92,12 @@ app.get("/UserPages/newJobUser", auth, (req, res) => {
   });
 })
 
-app.get("/availJobs", async (req, res) => {
+app.get("/availJobs", auth,async (req, res) => {
   try {
     const jobs = await Job.find();
-    console.log("data found", { jobs });
-    res.status(200).json(jobs);
+    const appli=await applicant.find({user_id:req.user._id});
+    console.log("data found", { jobs,appli});
+    res.status(200).json({jobs,appli});
   } catch (err) {
     res.status(500).json({ message: "error fetching jobs" });
   }
@@ -132,6 +133,36 @@ app.get("/applidetail",auth,async (req,res)=>{
     res.status(500).json({error:err.message})
   }
 })
+
+app.patch("/changeDetail",async (req,res)=>{
+  try{
+   const updated= await applicant.findByIdAndUpdate(
+      req.body._id,{
+        $set:{
+          status:req.body.status
+        }
+      },
+          { new: true }
+    )
+    console.log("Data changed")
+    res.status(200).json(updated)
+  }
+  catch(err){
+    res.status(500).json({message:err})
+  }
+})
+
+app.delete("/manageDel/:id",auth,async (req, res) => {
+  try {
+    const jobId=req.params.id;
+    await Job.deleteOne({_id:jobId})
+    const jobs = await Job.find();
+    const appli=await applicant.find({user_id:req.user._id});
+    console.log("data found", { jobs,appli});
+    res.status(200).json({jobs,appli});
+  } catch (err) {
+    res.status(500).json({ message: "error fetching jobs" });
+  }})
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })

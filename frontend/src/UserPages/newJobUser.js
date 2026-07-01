@@ -4,6 +4,7 @@ import "./newJobUser.css"
 function NewJobUser() {
     const navigate = useNavigate();
     const [jobs, setJobs] = useState([]);
+    const [appl, setAppli] = useState([]);
     const [file, setFile] = useState(null);
     function getTimeAgo(postedAt) {
         const now = new Date();
@@ -25,7 +26,8 @@ function NewJobUser() {
         return `${days} day${days > 1 ? "s" : ""} ago`;
     }
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token")
+        console.log(token)
         fetch("http://localhost:5000/UserPages/newJobUser",
             {
                 method: "GET",
@@ -46,13 +48,14 @@ function NewJobUser() {
                 fetch("http://localhost:5000/availJobs", {
                     method: "GET",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",authorization:token
                     }
                 })
                     .then(res => res.json())
                     .then(data => {
                         console.log(data)
-                        setJobs(data);
+                        setJobs(data.jobs);
+                        setAppli(data.appli);
 
                     })
                     .catch((err) => console.log(err.message));
@@ -79,8 +82,14 @@ function NewJobUser() {
         <div>New jobs appear here
             {
                 jobs.map(job => {
+                    const apl = appl.find(appl => appl.job_id === job._id);
                     return (
                         <div className="cont" key={job._id} style={{ backgroundColor: "pink" }}>
+                            {apl ? (
+                                <p>Status: {apl.status}</p>
+                            ) : (
+                                <p>Not Applied</p>
+                            )}
                             <h2>Title : {job.title}</h2>
                             <h2>Company: {job.company}</h2>
                             <h2>Salary: {job.salary}</h2>

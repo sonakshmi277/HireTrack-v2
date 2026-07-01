@@ -1,25 +1,25 @@
-const express=require("express");
+const express = require("express");
 const jwt = require("jsonwebtoken");
-const router=express.Router();
-const User=require("../Models/User");
+const router = express.Router();
+const User = require("../Models/User");
 
-router.post("/", async (req,res)=>{
-    try{
-        const userDet=await User.findOne({
-            email:req.body.email,
-            password:req.body.password
+router.post("/", async (req, res) => {
+    try {
+        const userDet = await User.findOne({
+            email: req.body.email,
+            password: req.body.password
         })
-        if(userDet){
-            const payload={email:req.body.email}
-            const token=jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'1h'})
-            return res.status(200).json({token})
+        if (userDet) {
+            const payload = { email: req.body.email, _id: req.body._id }
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
+            return res.status(200).json({ token })
         }
-        else{
+        else {
             return res.status(401).json("No such user exists")
         }
     }
-    catch(err){
+    catch (err) {
         return res.status(500).json({ error: err.message });
     }
 });
-module.exports=router;
+module.exports = router;

@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
             password: req.body.password
         });
         if (admin) {
-            const payload = { email: req.body.email }
+            const payload = { email: req.body.email, _id: req.body._id }
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
             return res.status(200).json({ token })
         }
