@@ -79,7 +79,7 @@ function NewJobUser() {
     };
 
     return (
-        <div>New jobs appear here
+        <div>New jobs appear here!!
             {
                 jobs.map(job => {
                     const apl = appl.find(appl => appl.job_id === job._id);
