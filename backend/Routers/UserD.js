@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
             password: req.body.password
         })
         if (userDet) {
-            const payload = { email: req.body.email, _id: req.body._id }
+            const payload = { email: userDet.email, _id: userDet._id }
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
             return res.status(200).json({ token })
         }
@@ -22,4 +22,4 @@ router.post("/", async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
-module.exports = router;
+module.exports = router; 

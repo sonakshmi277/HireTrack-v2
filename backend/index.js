@@ -14,6 +14,7 @@ const User = require("./Models/User");
 const applicant = require("./Models/Application");
 const auth = require("./middlewares/auth")
 const Job = require("./Models/Job");
+const Appli = require("./Models/Application");
 app.use("/adminData", adminRouter)
 app.use("/signIn", userRouter)
 
@@ -108,7 +109,7 @@ app.post("/uploadResume", auth, upload.single("resume"), async (req, res) => {
 
   try {
     await applicant.create({
-      user_id: req.user.id,
+      user_id: req.user._id,
       job_id: req.body.job_id,
       resume: req.file.path
     });
@@ -156,6 +157,7 @@ app.delete("/manageDel/:id",auth,async (req, res) => {
   try {
     const jobId=req.params.id;
     await Job.deleteOne({_id:jobId})
+    await Appli.deleteMany({job_id:jobId});
     const jobs = await Job.find();
     const appli=await applicant.find({user_id:req.user._id});
     console.log("data found", { jobs,appli});
