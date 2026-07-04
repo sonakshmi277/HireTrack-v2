@@ -1,0 +1,184 @@
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+body{
+
+    background:#0A0F1C;
+
+}
+
+/* Page */
+
+.signPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#0A66C220 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#2563EB20 0%,transparent 35%),
+    #0A0F1C;
+
+}
+
+/* Login Box */
+
+.signBox{
+
+    width:430px;
+
+    background:#111827;
+
+    border:1px solid #223047;
+
+    border-radius:20px;
+
+    padding:45px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+
+}
+
+/* Logo */
+
+.logo{
+
+    width:75px;
+
+    height:75px;
+
+    background:#0A66C2;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:0 auto 25px;
+
+    font-size:32px;
+
+}
+
+/* Heading */
+
+.signBox h1{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+.signBox p{
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+
+    line-height:1.6;
+
+}
+
+/* Form */
+
+.signBox form{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* Inputs */
+
+.signBox input{
+
+    background:#0F172A;
+
+    border:1px solid #223047;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:18px;
+
+    font-size:16px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.signBox input::placeholder{
+
+    color:#64748B;
+
+}
+
+.signBox input:focus{
+
+    border-color:#0A66C2;
+
+    box-shadow:0 0 0 3px rgba(10,102,194,.2);
+
+}
+
+/* Button */
+
+.signBox button{
+
+    background:#0A66C2;
+
+    color:white;
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.signBox button:hover{
+
+    background:#004182;
+
+    transform:translateY(-2px);
+
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import "./applicantsAdmin.css";
 function ApplicantsAdmin() {
   const [info, setInfo] = useState([]);
   const navigate = useNavigate();
@@ -54,39 +55,107 @@ function ApplicantsAdmin() {
       .catch(err => { console.log(err.message) });
   }
 
+return (
+    <div className="applicantsPage">
 
-  return (
-    <div>
-      {
-        info.map(inf => {
-          return (
-            <div style={{ backgroundColor: "pink" }} className='cont' key={inf._id}>
-              <select onChange={(e) => handleChange(inf._id, e)} value={inf.status}>
-                <option value="Pending">Pending</option>
-                <option value="Shortlisted">Shortlisted</option>
-                <option value="Reviewing">Reviewing</option>
-                <option value="Selected">Selected</option>
-              </select>
+        <h1 className="pageTitle">Applicants</h1>
 
-              <a
-                href={`http://localhost:5000/${inf.resume}`}
-                target="_blank"
-              >
-                View Resume
-              </a>
-              <h3>Email: {inf.user_id?.email}</h3>
-              <h3>Job title: {inf.job_id?.title}</h3>
-              <h3>{inf.job_id?.salary}</h3>
-              <h3>{inf.job_id?.qualification}</h3>
-              <h3>{inf.job_id?.yearsOfExp}</h3>
-              <h3>{inf.job_id?.jobDesc}</h3>
-              <h3>{inf.job_id?.skills}</h3>
-            </div>
-          )
-        })
-      }
+        <p className="pageSubtitle">
+            Review all applicants and update their application status.
+        </p>
+
+        <div className="tableContainer">
+
+            <table className="applicantTable">
+
+                <thead>
+
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Job</th>
+                        <th>Salary</th>
+                        <th>Qualification</th>
+                        <th>Experience</th>
+                        <th>Resume</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {
+                        info.map(inf => {
+
+                            return (
+
+                                <tr key={inf._id}>
+
+                                    <td>{inf.user_id?.email}</td>
+
+                                    <td>{inf.job_id?.title}</td>
+
+                                    <td>₹ {inf.job_id?.salary}</td>
+
+                                    <td>{inf.job_id?.qualification}</td>
+
+                                    <td>{inf.job_id?.yearsOfExp} Years</td>
+
+                                    <td>
+
+                                        <a
+                                            href={`http://localhost:5000/${inf.resume}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="resumeBtn"
+                                        >
+                                            📄 Resume
+                                        </a>
+
+                                    </td>
+
+                                    <td>
+
+                                        <select
+                                            value={inf.status}
+                                            onChange={(e) => handleChange(inf._id, e)}
+                                            className="statusSelect"
+                                        >
+
+                                            <option value="Pending">
+                                                Pending
+                                            </option>
+
+                                            <option value="Shortlisted">
+                                                Shortlisted
+                                            </option>
+
+                                            <option value="Reviewing">
+                                                Reviewing
+                                            </option>
+
+                                            <option value="Selected">
+                                                Selected
+                                            </option>
+
+                                        </select>
+
+                                    </td>
+
+                                </tr>
+
+                            )
+
+                        })
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
-  )
-}
+)}
 
-export default ApplicantsAdmin
+export default ApplicantsAdmin;

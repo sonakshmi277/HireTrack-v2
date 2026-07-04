@@ -1,0 +1,156 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+
+    background:#0A0F1C;
+}
+
+.applicantsPage{
+
+    min-height:100vh;
+
+    background:#0A0F1C;
+
+    padding:40px;
+}
+
+.pageTitle{
+
+    color:white;
+
+    font-size:42px;
+
+    margin-bottom:8px;
+}
+
+.pageSubtitle{
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+}
+
+
+.tableContainer{
+
+    background:#111827;
+
+    border:1px solid #223047;
+
+    border-radius:16px;
+
+    overflow:hidden;
+}
+
+.applicantTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.applicantTable thead{
+
+    background:#172033;
+}
+
+.applicantTable th{
+
+    color:white;
+
+    text-align:left;
+
+    padding:18px;
+
+    font-size:16px;
+
+    font-weight:600;
+}
+
+.applicantTable td{
+
+    padding:18px;
+
+    color:#CBD5E1;
+
+    border-top:1px solid #223047;
+}
+
+.applicantTable tbody tr{
+
+    transition:.25s;
+}
+
+.applicantTable tbody tr:hover{
+
+    background:#172033;
+}
+
+
+.resumeBtn{
+
+    text-decoration:none;
+
+    background:#0A66C2;
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    display:inline-block;
+
+    transition:.25s;
+}
+
+.resumeBtn:hover{
+
+    background:#004182;
+}
+
+
+.statusSelect{
+
+    background:#0F172A;
+
+    color:white;
+
+    border:1px solid #0A66C2;
+
+    border-radius:8px;
+
+    padding:9px 12px;
+
+    outline:none;
+
+    cursor:pointer;
+}
+
+.statusSelect:focus{
+
+    border-color:#60A5FA;
+}
+
+
+.tableContainer{
+
+    overflow-x:auto;
+}
+
+::-webkit-scrollbar{
+
+    height:8px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:20px;
+}

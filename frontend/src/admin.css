@@ -1,0 +1,186 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:#0A0F1C;
+}
+
+.loginPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#0A0F1C;
+}
+
+
+.loginPage::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    background:#0A66C2;
+
+    filter:blur(170px);
+
+    opacity:.18;
+
+    left:-120px;
+    top:-120px;
+}
+
+.loginPage::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+    height:320px;
+
+    border-radius:50%;
+
+    background:#38BDF8;
+
+    filter:blur(170px);
+
+    opacity:.08;
+
+    right:-100px;
+    bottom:-100px;
+}
+
+.loginCard{
+
+    width:450px;
+
+    padding:45px;
+
+    border-radius:22px;
+
+    background:rgba(17,24,39,.88);
+
+    border:1px solid #243247;
+
+    backdrop-filter:blur(16px);
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+    position:relative;
+
+    z-index:2;
+}
+
+.loginCard h1{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:38px;
+
+    margin-bottom:12px;
+}
+
+.loginCard p{
+
+    text-align:center;
+
+    color:#9CA3AF;
+
+    margin-bottom:35px;
+
+    line-height:1.6;
+}
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+form input{
+
+    padding:16px;
+
+    border-radius:12px;
+
+    border:1px solid #334155;
+
+    background:#111827;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+form input::placeholder{
+
+    color:#94A3B8;
+}
+
+form input:focus{
+
+    border-color:#0A66C2;
+
+    box-shadow:0 0 15px rgba(10,102,194,.25);
+}
+
+form button{
+
+    margin-top:10px;
+    margin: 20px auto 0;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#0A66C2;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+form button:hover{
+
+    background:#004182;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(10,102,194,.35);
+}

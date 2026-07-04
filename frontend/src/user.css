@@ -1,0 +1,138 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+
+    background:#0A0F1C;
+}
+
+
+.userPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#0A66C220 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#2563EB20 0%,transparent 35%),
+    #0A0F1C;
+}
+
+
+.userBox{
+
+    width:430px;
+
+    background:#111827;
+
+    border:1px solid #223047;
+
+    border-radius:20px;
+
+    padding:45px;
+
+    text-align:center;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.logo{
+
+    width:80px;
+
+    height:80px;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:#0A66C2;
+
+    font-size:34px;
+}
+
+.userBox h1{
+
+    color:white;
+
+    font-size:36px;
+
+    margin-bottom:15px;
+}
+
+.userBox p{
+
+    color:#94A3B8;
+
+    line-height:1.7;
+
+    margin-bottom:35px;
+
+    font-size:16px;
+}
+
+
+.userBox button{
+
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#0A66C2;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.userBox button:hover{
+
+    background:#004182;
+
+    transform:translateY(-2px);
+}
+
+.secondaryBtn{
+
+    background:transparent !important;
+
+    border:1px solid #0A66C2 !important;
+
+    color:#60A5FA !important;
+}
+
+.secondaryBtn:hover{
+
+    background:#0A66C2 !important;
+
+    color:white !important;
+}

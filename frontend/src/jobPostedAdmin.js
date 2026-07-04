@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./UserPages/newJobUser.css"
 import { useNavigate } from 'react-router-dom';
+import "./jobPostedAdmin.css";
 function JobPostedAdmin() {
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
@@ -67,34 +68,115 @@ function JobPostedAdmin() {
       method: "DELETE",
       headers: { "Content-Type": "application/json", authorization: token }
     })
-    .then(res=>res.json())
-    .then(data=>{
-      setJobs(data.jobs);
-    })
-    .catch((err)=>console.log(err.message));
+      .then(res => res.json())
+      .then(data => {
+        setJobs(data.jobs);
+      })
+      .catch((err) => console.log(err.message));
   }
   return (
-    <div>
-      {
-        jobs.map(job => {
-          return (
-            <div className="cont" key={job._id} style={{ backgroundColor: "pink" }}>
-              <h2>{job.title}</h2>
-              <h2> {job.company}</h2>
-              <h2>{job.salary}</h2>
-              <h2>{job.qualification}</h2>
-              <h2> {job.skills}</h2>
-              <h2> {job.yearsOfExp}</h2>
-              <h2>{job.jobDesc}</h2>
-              <p>{getTimeAgo(job.postedAt)}</p>
-              <button onClick={()=>manageDelete(job._id)}>🗑️</button>
+    <div className="jobsPage">
 
-            </div>
-          )
-        })
-      }
+      <div className="pageHeader">
+
+        <h1>Manage Jobs</h1>
+
+        <p>
+          View and manage all active job postings.
+        </p>
+
+      </div>
+
+      <div className="tableContainer">
+
+        <table className="jobTable">
+
+          <thead>
+
+            <tr>
+
+              <th>Job Title</th>
+
+              <th>Company</th>
+
+              <th>Salary</th>
+
+              <th>Experience</th>
+
+              <th>Posted</th>
+
+              <th>Action</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {
+              jobs.map(job => {
+
+                return (
+
+                  <tr key={job._id}>
+
+                    <td>
+                      <strong>{job.title}</strong>
+                    </td>
+
+                    <td>
+                      {job.company}
+                    </td>
+
+                    <td>
+                      ₹ {job.salary}
+                    </td>
+
+                    <td>
+                      {job.yearsOfExp} yrs
+                    </td>
+
+                    <td>
+                      <span className="postedBadge">
+                        {getTimeAgo(job.postedAt)}
+                      </span>
+                    </td>
+
+                    <td>
+
+                      <button
+                        className="viewBtn"
+                      >
+                        👁
+                      </button>
+                      <button className="editBtn">
+                        ✏️
+                      </button>
+                      <button
+                        className="deleteBtn"
+                        onClick={() => manageDelete(job._id)}
+                      >
+                        🗑
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                )
+
+              })
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
-  )
+  );
+
 }
 
 export default JobPostedAdmin

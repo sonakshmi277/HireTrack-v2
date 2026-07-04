@@ -1,0 +1,467 @@
+/* ==========================================
+                GLOBAL
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+
+    background:#0A0F1C;
+
+    color:#F8FAFC;
+
+    overflow-x:hidden;
+}
+
+/* ==========================================
+                PAGE
+========================================== */
+
+.jobsPage{
+
+    min-height:100vh;
+
+    padding:45px 60px;
+
+    background:
+    radial-gradient(circle at top left,#0A66C220 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#2563EB18 0%,transparent 35%),
+    #0A0F1C;
+}
+
+/* ==========================================
+            PAGE HEADER
+========================================== */
+
+.pageHeader{
+
+    margin-bottom:40px;
+}
+
+.pageHeader h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:white;
+
+    margin-bottom:10px;
+
+    letter-spacing:.4px;
+}
+
+.pageHeader p{
+
+    color:#94A3B8;
+
+    font-size:17px;
+
+    line-height:1.6;
+}
+
+/* ==========================================
+        TABLE CONTAINER
+========================================== */
+
+.tableContainer{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    border-radius:22px;
+
+    background:linear-gradient(180deg,#172135,#111827);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+    0 18px 40px rgba(0,0,0,.35);
+
+    backdrop-filter:blur(14px);
+}
+
+/* ==========================================
+            TABLE
+========================================== */
+
+.jobTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:950px;
+}
+/* ==========================================
+            TABLE HEADER
+========================================== */
+
+.jobTable thead{
+
+    background:#101B30;
+}
+
+.jobTable th{
+
+    padding:22px 24px;
+
+    text-align:left;
+
+    color:#E2E8F0;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:.4px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* ==========================================
+                TABLE ROWS
+========================================== */
+
+.jobTable tbody tr{
+
+    transition:.3s;
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.jobTable tbody tr:last-child{
+
+    border-bottom:none;
+}
+
+.jobTable tbody tr:hover{
+
+    background:rgba(10,102,194,.08);
+
+    transform:scale(1.005);
+}
+
+/* ==========================================
+                TABLE CELLS
+========================================== */
+
+.jobTable td{
+
+    padding:22px 24px;
+
+    color:#CBD5E1;
+
+    font-size:15px;
+
+    vertical-align:middle;
+}
+
+/* ==========================================
+            JOB TITLE
+========================================== */
+
+.jobTable strong{
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+}
+
+/* ==========================================
+            COMPANY
+========================================== */
+
+.jobTable td:nth-child(2){
+
+    color:#AFC3E8;
+}
+
+/* ==========================================
+            SALARY
+========================================== */
+
+.jobTable td:nth-child(3){
+
+    color:#60A5FA;
+
+    font-weight:600;
+}
+
+/* ==========================================
+        EXPERIENCE
+========================================== */
+
+.jobTable td:nth-child(4){
+
+    color:#CBD5E1;
+}
+
+/* ==========================================
+            POSTED TIME
+========================================== */
+
+.jobTable td:nth-child(5){
+
+    color:#94A3B8;
+
+    font-size:14px;
+}
+
+/* ==========================================
+        ACTION BUTTON WRAPPER
+========================================== */
+
+.jobTable td:last-child{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}/* ==========================================
+            ACTION BUTTONS
+========================================== */
+
+.viewBtn,
+.editBtn,
+.deleteBtn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+    background:#162033;
+}
+
+/* View */
+
+.viewBtn{
+
+    color:#60A5FA;
+}
+
+.viewBtn:hover{
+
+    background:#0A66C2;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(10,102,194,.35);
+}
+
+/* Edit */
+
+.editBtn{
+
+    color:#FACC15;
+}
+
+.editBtn:hover{
+
+    background:#EAB308;
+
+    color:#111827;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(234,179,8,.35);
+}
+
+/* Delete */
+
+.deleteBtn{
+
+    color:#EF4444;
+}
+
+.deleteBtn:hover{
+
+    background:#DC2626;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(220,38,38,.35);
+}
+
+/* ==========================================
+            EMPTY STATE
+========================================== */
+
+.emptyJobs{
+
+    text-align:center;
+
+    padding:90px 30px;
+
+    color:#94A3B8;
+
+    font-size:18px;
+}
+
+.emptyJobs h2{
+
+    color:white;
+
+    margin-bottom:12px;
+}
+
+/* ==========================================
+            FADE IN
+========================================== */
+
+.tableContainer{
+
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+/* ==========================================
+            SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#0A0F1C;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#0A66C2;
+}
+
+/* ==========================================
+            RESPONSIVE
+========================================== */
+
+@media(max-width:1200px){
+
+    .jobsPage{
+
+        padding:30px;
+    }
+
+    .pageHeader h1{
+
+        font-size:36px;
+    }
+
+    .tableContainer{
+
+        overflow-x:auto;
+    }
+
+    .jobTable{
+
+        min-width:900px;
+    }
+}
+
+@media(max-width:768px){
+
+    .jobsPage{
+
+        padding:20px;
+    }
+
+    .pageHeader h1{
+
+        font-size:30px;
+    }
+
+    .pageHeader p{
+
+        font-size:15px;
+    }
+
+    .viewBtn,
+    .editBtn,
+    .deleteBtn{
+
+        width:38px;
+
+        height:38px;
+
+        font-size:16px;
+    }
+
+    .jobTable th,
+    .jobTable td{
+
+        padding:18px;
+    }
+}
+.postedBadge{
+
+    display:inline-block;
+
+    padding:7px 14px;
+
+    border-radius:999px;
+
+    background:#162033;
+
+    color:#60A5FA;
+
+    font-size:13px;
+
+    font-weight:500;
+}

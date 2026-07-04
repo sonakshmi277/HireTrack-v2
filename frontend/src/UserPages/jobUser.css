@@ -30,6 +30,10 @@ body{
     #0A0F1C;
 }
 
+/* ==========================
+        HEADER
+========================== */
+
 .pageHeader{
 
     margin-bottom:35px;
@@ -61,15 +65,16 @@ body{
 
     overflow-x:auto;
 
-    border-radius:18px;
+    border-radius:20px;
+
+    overflow:hidden;
 
     border:1px solid rgba(255,255,255,.06);
 
     background:#111827;
 
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
-
-    overflow:hidden;
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.35);
 }
 
 .jobsTable{
@@ -90,25 +95,13 @@ body{
 
     text-align:left;
 
-    color:#E5E7EB;
+    color:#F8FAFC;
 
     font-size:15px;
 
     font-weight:600;
 
     letter-spacing:.4px;
-}
-
-.jobsTable tbody tr{
-
-    transition:.3s;
-
-    border-top:1px solid rgba(255,255,255,.05);
-}
-
-.jobsTable tbody tr:hover{
-
-    background:#172135;
 }
 
 .jobsTable td{
@@ -127,6 +120,18 @@ body{
     color:white;
 
     font-size:16px;
+}
+
+.jobsTable tbody tr{
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    transition:.3s;
+}
+
+.jobsTable tbody tr:hover{
+
+    background:#172135;
 }
 /* ==========================
         STATUS BADGES
@@ -151,15 +156,6 @@ body{
     font-weight:600;
 
     text-transform:capitalize;
-}
-
-/* Not Applied */
-
-.notApplied{
-
-    background:#475569;
-
-    color:white;
 }
 
 /* Pending */
@@ -198,20 +194,70 @@ body{
     color:white;
 }
 
+/* Applied */
+
+.applied{
+
+    background:#0A66C2;
+
+    color:white;
+}
+
 
 /* ==========================
-        ACTION BUTTON
+        RESUME BUTTON
+========================== */
+
+.resumeBtn{
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    background:#162033;
+
+    color:#60A5FA;
+
+    width:100px;
+
+    height:42px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+    font-weight:600;
+}
+
+.resumeBtn:hover{
+
+    background:#0A66C2;
+
+    color:white;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(10,102,194,.35);
+}
+
+
+/* ==========================
+        VIEW BUTTON
 ========================== */
 
 .viewBtn{
 
-    width:46px;
+    width:44px;
 
-    height:46px;
+    height:44px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:10px;
 
     background:#162033;
 
@@ -219,7 +265,7 @@ body{
 
     cursor:pointer;
 
-    font-size:20px;
+    font-size:18px;
 
     transition:.3s;
 }
@@ -237,7 +283,7 @@ body{
 
 
 /* ==========================
-        TABLE ANIMATION
+        TABLE POLISH
 ========================== */
 
 .jobsTable tbody tr{
@@ -250,6 +296,41 @@ body{
 .jobsTable tbody tr:hover{
 
     transform:scale(1.01);
+}
+
+.jobsTable tbody tr:hover td{
+
+    color:#F8FAFC;
+}
+
+.jobsTable tbody tr:hover strong{
+
+    color:#60A5FA;
+}
+
+.jobsTable td{
+
+    height:78px;
+}
+
+
+/* ==========================
+        ALIGNMENT
+========================== */
+
+.jobsTable th:nth-child(3),
+.jobsTable td:nth-child(3),
+
+.jobsTable th:nth-child(4),
+.jobsTable td:nth-child(4),
+
+.jobsTable th:nth-child(5),
+.jobsTable td:nth-child(5),
+
+.jobsTable th:nth-child(6),
+.jobsTable td:nth-child(6){
+
+    text-align:center;
 }
 
 
@@ -282,29 +363,32 @@ body{
 }
 
 
-/* ==========================
-        RESPONSIVE
-========================== */
+
 
 @media(max-width:1100px){
-
-    .jobsTable{
-
-        min-width:1000px;
-    }
 
     .jobsPage{
 
         padding:30px;
     }
 
+    .jobsTable{
+
+        min-width:900px;
+    }
+
 }
 
 @media(max-width:700px){
 
+    .jobsPage{
+
+        padding:20px;
+    }
+
     .pageHeader h1{
 
-        font-size:32px;
+        font-size:30px;
     }
 
     .pageHeader p{
@@ -312,52 +396,28 @@ body{
         font-size:15px;
     }
 
-    .jobsPage{
+}
 
-        padding:20px;
+
+.jobsPage{
+
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
     }
 
-}
+    to{
 
-/* ==========================
-        EXTRA POLISH
-========================== */
+        opacity:1;
 
-.pageHeader{
-    margin-bottom:45px;
-}
+        transform:translateY(0);
+    }
 
-.jobsTable td{
-    vertical-align:middle;
-}
-
-.jobsTable th{
-    user-select:none;
-}
-
-.jobsTable tbody tr:last-child td{
-    border-bottom:none;
-}
-
-.tableContainer{
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.jobsTable{
-    table-layout:fixed;
-}
-
-.jobsTable td,
-.jobsTable th{
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.jobsTable td:first-child{
-    font-weight:600;
-}
-
-.jobsTable tbody tr:hover{
-    cursor:pointer;
 }

@@ -1,18 +1,26 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import "./admin.css";
 function Admin() {
-    const navigate=useNavigate();
-    const [formData, setFormData] = useState({ company: "", email: "", password: "" });
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        company: "",
+        email: "",
+        password: ""
+    });
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formData.company !== "" && formData.email !== "" && formData.password !== "") {
+        if (
+            formData.company !== "" &&
+            formData.email !== "" &&
+            formData.password !== ""
+        ) {
             console.log("Form submitted");
         }
         else {
             alert("Please fill all details");
             return;
         }
-
         fetch("http://localhost:5000/adminData", {
             method: "POST",
             headers: {
@@ -27,16 +35,13 @@ function Admin() {
                     localStorage.setItem("token", data.token);
                     console.log("token saved", data.token)
                     return navigate("/adminHomePage");
-
                 }
                 else {
                     console.log("Invalid admin")
+                    alert("Enter correct login details")
                 }
             })
             .catch(err => console.log(err));
-
-        
-
     };
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,19 +49,50 @@ function Admin() {
             ...prev,
             [name]: value
         }));
+
     };
 
-
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="company" placeholder="Enter company name" value={formData.company} onChange={handleChange} />
-                <input type="text" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
-                <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
-                <button type="submit">Login</button>
-            </form>
+        <div className="loginPage">
+            <div className="loginCard">
+                <h1>Admin Login</h1>
+                <p>
+                    Access your HireTrack dashboard and manage job postings.
+                </p>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="company"
+                        placeholder="Enter company name"
+                        value={formData.company}
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+
+                    <button type="submit">
+                        Login
+                    </button>
+                </form>
+            </div>
         </div>
+
     )
+
 }
 
 export default Admin;

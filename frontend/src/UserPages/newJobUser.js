@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import "./newJobUser.css"
+
 function NewJobUser() {
+
     const navigate = useNavigate();
+
     const [jobs, setJobs] = useState([]);
     const [appl, setAppli] = useState([]);
     const [file, setFile] = useState(null);
+
     function getTimeAgo(postedAt) {
+
         const now = new Date();
         const posted = new Date(postedAt);
 
@@ -19,95 +24,224 @@ function NewJobUser() {
         if (minutes < 60) {
             return `${minutes} min ago`;
         }
+
         if (hours < 24) {
             return `${hours} hr ago`;
         }
 
         return `${days} day${days > 1 ? "s" : ""} ago`;
+
     }
+
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        console.log(token)
-        fetch("http://localhost:5000/UserPages/newJobUser",
-            {
-                method: "GET",
-                headers: {
-                    authorization: token
-                }
+
+        const token = localStorage.getItem("token");
+
+        fetch("http://localhost:5000/UserPages/newJobUser", {
+
+            method: "GET",
+
+            headers: {
+                authorization: token
             }
-        )
+
+        })
+
             .then(res => {
+
                 if (res.status === 401 || res.status === 403) {
+
                     navigate("/");
+
                     return;
+
                 }
+
                 return res.json();
+
             })
+
             .then(data => {
-                console.log(data)
+
+                console.log(data);
+
                 fetch("http://localhost:5000/availJobs", {
+
                     method: "GET",
+
                     headers: {
-                        "Content-Type": "application/json",authorization:token
+
+                        "Content-Type": "application/json",
+
+                        authorization: token
+
                     }
+
                 })
+
                     .then(res => res.json())
+
                     .then(data => {
-                        console.log(data)
+
                         setJobs(data.jobs);
+
                         setAppli(data.appli);
 
                     })
-                    .catch((err) => console.log(err.message));
-            })
-            .catch((err) => console.log(err))
 
+                    .catch(err => console.log(err));
+
+            })
+
+            .catch(err => console.log(err));
 
     }, []);
+
     const handleUpload = async (file, jobId) => {
+
         const formData = new FormData();
+
         formData.append("resume", file);
+
         formData.append("job_id", jobId);
 
         await fetch("http://localhost:5000/uploadResume", {
+
             method: "POST",
+
             headers: {
+
                 authorization: localStorage.getItem("token")
+
             },
+
             body: formData
+
         });
-    };
+
+    }
 
     return (
-        <div>New jobs appear here!
-            {
-                jobs.map(job => {
-                    const apl = appl.find(appl => appl.job_id === job._id);
-                    return (
-                        <div className="cont" key={job._id} style={{ backgroundColor: "pink" }}>
-                            {apl ? (
-                                <p>Status: {apl.status}</p>
-                            ) : (
-                                <p>Not Applied</p>
-                            )}
-                            <h2>Title : {job.title}</h2>
-                            <h2>Company: {job.company}</h2>
-                            <h2>Salary: {job.salary}</h2>
-                            <h2>Qualifications needed: {job.qualification}</h2>
-                            <h2>Skills needed: {job.skills}</h2>
-                            <h2>Years of experience: {job.yearsOfExp}</h2>
-                            <h2>Job description: {job.jobDesc}</h2>
-                            <p>Job Posted at: {getTimeAgo(job.postedAt)}</p>
-                            <input type="file" onChange={(e) => { setFile(e.target.files[0]) }} />
-                            <button onClick={() => handleUpload(file, job._id)}>Apply</button>
 
-                        </div>
-                    )
-                })
-            }
+    <div className="jobsPage">
+
+        <div className="pageHeader">
+
+            <h1>Available Jobs</h1>
+
+            <p>
+                Explore opportunities that match your skills and apply instantly.
+            </p>
 
         </div>
-    )
+
+        <div className="tableContainer">
+
+            <table className="jobsTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Job Title</th>
+                        <th>Company</th>
+                        <th>Salary</th>
+                        <th>Experience</th>
+                        <th>Posted</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {
+
+                        jobs.map(job => {
+
+                            const apl = appl.find(
+                                application => application.job_id === job._id
+                            );
+
+                            return (
+
+                                <tr key={job._id}>
+
+                                    <td>
+                                        <strong>{job.title}</strong>
+                                    </td>
+
+                                    <td>
+                                        {job.company}
+                                    </td>
+
+                                    <td>
+                                        ₹ {job.salary}
+                                    </td>
+
+                                    <td>
+                                        {job.yearsOfExp} yrs
+                                    </td>
+
+                                    <td>
+                                        {getTimeAgo(job.postedAt)}
+                                    </td>
+
+                                    <td>
+
+                                        {
+
+                                            apl ?
+
+                                                <span className={`status ${apl.status.toLowerCase()}`}>
+
+                                                    {apl.status}
+
+                                                </span>
+
+                                                :
+
+                                                <span className="status notApplied">
+
+                                                    Not Applied
+
+                                                </span>
+
+                                        }
+
+                                    </td>
+
+                                    <td>
+
+                                        <button
+                                            className="viewBtn"
+                                        >
+
+                                            👁
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            )
+
+                        })
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+)
 }
 
-export default NewJobUser
+export default NewJobUser;
