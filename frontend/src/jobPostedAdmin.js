@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./jobPostedAdmin.css";
 function JobPostedAdmin() {
   const [jobs, setJobs] = useState([]);
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
   const navigate = useNavigate();
   function getTimeAgo(postedAt) {
     const now = new Date();
@@ -73,6 +74,9 @@ function JobPostedAdmin() {
         setJobs(data.jobs);
       })
       .catch((err) => console.log(err.message));
+  }
+  function handleView(id) {
+
   }
   return (
     <div className="jobsPage">
@@ -145,7 +149,7 @@ function JobPostedAdmin() {
                     <td>
 
                       <button
-                        className="viewBtn"
+                        className="viewBtn" onClick={() => setSelectedApplicant(job)}
                       >
                         👁
                       </button>
@@ -173,6 +177,64 @@ function JobPostedAdmin() {
         </table>
 
       </div>
+      {selectedApplicant && (
+        <div className="overlay">
+
+          <div className="modal">
+
+            <div className="modalHeader">
+              <h2>{selectedApplicant.title}</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setSelectedApplicant(null)}
+              >
+                ✖
+              </button>
+            </div>
+
+            <div className="modalBody">
+
+              <div className="detail">
+                <span>Company</span>
+                <p>{selectedApplicant.company}</p>
+              </div>
+
+              <div className="detail">
+                <span>Salary</span>
+                <p>₹ {selectedApplicant.salary}</p>
+              </div>
+
+              <div className="detail">
+                <span>Qualification</span>
+                <p>{selectedApplicant.qualification}</p>
+              </div>
+
+              <div className="detail">
+                <span>Skills</span>
+                <p>{selectedApplicant.skills}</p>
+              </div>
+
+              <div className="detail">
+                <span>Experience</span>
+                <p>{selectedApplicant.yearsOfExp} Years</p>
+              </div>
+
+              <div className="detail">
+                <span>Posted</span>
+                <p>{getTimeAgo(selectedApplicant.postedAt)}</p>
+              </div>
+
+              <div className="description">
+                <span> Job Description</span>
+                <p>{selectedApplicant.jobDesc}</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );

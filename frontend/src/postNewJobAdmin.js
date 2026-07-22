@@ -105,45 +105,7 @@ function PostNewJobAdmin() {
     }
 return (
     <div className={`app ${mode}`}>
-
-        <div className="topBar">
-
-            <div
-                className="brand"
-                onClick={handleHireTrackClick}
-            >
                 
-                <h1>HireTrack</h1>
-            </div>
-
-            <div className="topRight">
-
-                <div className="notification">
-                    🔔
-                </div>
-
-                <div className="profile">
-                    👤
-                </div>
-
-                <div
-                    className="logout"
-                    onClick={handleLogOutClick}
-                >
-                    ⏻
-                </div>
-
-                <div
-                    className="bg"
-                    onClick={handleMode}
-                >
-                    ☀️
-                </div>
-
-            </div>
-
-        </div>
-
         <div className="pageContainer">
 
             <div className="pageHeader">
