@@ -75,9 +75,6 @@ function JobPostedAdmin() {
       })
       .catch((err) => console.log(err.message));
   }
-  function handleView(id) {
-
-  }
   return (
     <div className="jobsPage">
 
