@@ -165,6 +165,42 @@ app.delete("/manageDel/:id",auth,async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "error fetching jobs" });
   }})
+
+
+app.patch("/editJob/:id",auth, async(req,res)=>{
+  try{
+    const jobId=req.params.id;
+    const updatedJob=await Job.findByIdAndUpdate(
+      jobId,
+      {
+        $set:{
+          company:req.body.company,
+          title:req.body.title,
+          salary:req.body.salary,
+          qualification: req.body.qualification,
+          skills: req.body.skills,
+          yearsOfExp: req.body.yearsOfExp,
+          jobDesc: req.body.jobDesc
+        }
+      },
+      {new:true}
+    );
+    res.status(200).json(updatedJob);
+
+  } catch(err){
+    res.status(500).json({error:err.message});
+  }
+})
+
+app.get("/jobCount",auth,async(req,res)=>{
+  try{
+    const ct=await Job.countDocuments();
+    res.status(200).json({totalJobs:ct});
+  }
+  catch(err){
+    res.status(500).json({error:err.message});
+  }
+})
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })

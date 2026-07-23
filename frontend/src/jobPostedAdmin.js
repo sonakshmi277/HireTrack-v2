@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import "./jobPostedAdmin.css";
 function JobPostedAdmin() {
   const [jobs, setJobs] = useState([]);
-  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [changeJob, setChangeJob] = useState(null);
+  const [formData, setFormData] = useState({
+    id: "", title: "",
+    company: "", salary: "", skills: "", qualification: "", yearsOfExp: "", jobDesc: ""
+  });
   const navigate = useNavigate();
   function getTimeAgo(postedAt) {
     const now = new Date();
@@ -62,6 +67,52 @@ function JobPostedAdmin() {
 
 
   }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:5000/editJob/${formData.id}`, {
+      method: "PATCH",
+      headers: { authorization: token, "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    })
+      .then(res => {
+
+        if (res.status === 401 || res.status === 403) {
+          navigate("/");
+          return;
+        }
+
+        if (res.status === 500) {
+          alert("Something went wrong on the server. Please try again later.");
+          return;
+        }
+
+        return res.json();
+      })
+      .then(data => {
+
+        setJobs(prev =>
+          prev.map(job =>
+            job._id === data._id ? data : job
+          )
+        );
+        setSelectedJob(prev =>
+          prev && prev._id === data._id ? data : prev
+        );
+        setChangeJob(null);
+
+        console.log("Job edited successfully");
+      })
+      .catch(err => console.log(err));
+  }
 
   function manageDelete(id) {
     const token = localStorage.getItem("token");
@@ -146,11 +197,23 @@ function JobPostedAdmin() {
                     <td>
 
                       <button
-                        className="viewBtn" onClick={() => setSelectedApplicant(job)}
+                        className="viewBtn" onClick={() => setSelectedJob(job)}
                       >
                         👁
                       </button>
-                      <button className="editBtn">
+                      <button className="editBtn" onClick={() => {
+                        setChangeJob(job);
+                        setFormData({
+                          id: job._id,
+                          title: job.title,
+                          company: job.company,
+                          salary: job.salary,
+                          qualification: job.qualification,
+                          skills: job.skills,
+                          yearsOfExp: job.yearsOfExp,
+                          jobDesc: job.jobDesc
+                        })
+                      }}>
                         ✏️
                       </button>
                       <button
@@ -174,16 +237,16 @@ function JobPostedAdmin() {
         </table>
 
       </div>
-      {selectedApplicant && (
+      {selectedJob && (
         <div className="overlay">
 
           <div className="modal">
 
             <div className="modalHeader">
-              <h2>{selectedApplicant.title}</h2>
+              <h2>{selectedJob.title}</h2>
               <button
                 className="closeBtn"
-                onClick={() => setSelectedApplicant(null)}
+                onClick={() => setSelectedJob(null)}
               >
                 ✖
               </button>
@@ -193,37 +256,37 @@ function JobPostedAdmin() {
 
               <div className="detail">
                 <span>Company</span>
-                <p>{selectedApplicant.company}</p>
+                <p>{selectedJob.company}</p>
               </div>
 
               <div className="detail">
                 <span>Salary</span>
-                <p>₹ {selectedApplicant.salary}</p>
+                <p>₹ {selectedJob.salary}</p>
               </div>
 
               <div className="detail">
                 <span>Qualification</span>
-                <p>{selectedApplicant.qualification}</p>
+                <p>{selectedJob.qualification}</p>
               </div>
 
               <div className="detail">
                 <span>Skills</span>
-                <p>{selectedApplicant.skills}</p>
+                <p>{selectedJob.skills}</p>
               </div>
 
               <div className="detail">
                 <span>Experience</span>
-                <p>{selectedApplicant.yearsOfExp} Years</p>
+                <p>{selectedJob.yearsOfExp} Years</p>
               </div>
 
               <div className="detail">
                 <span>Posted</span>
-                <p>{getTimeAgo(selectedApplicant.postedAt)}</p>
+                <p>{getTimeAgo(selectedJob.postedAt)}</p>
               </div>
 
               <div className="description">
                 <span> Job Description</span>
-                <p>{selectedApplicant.jobDesc}</p>
+                <p>{selectedJob.jobDesc}</p>
               </div>
 
             </div>
@@ -233,6 +296,88 @@ function JobPostedAdmin() {
         </div>
       )}
 
+      {changeJob && (
+        <div className="overlay">
+
+          <div className="modal">
+
+            <div className="modalHeader">
+              <h2>{formData.title}</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setChangeJob(null)}
+              >
+                ✖
+              </button>
+            </div>
+
+
+            <form onSubmit={handleSubmit}>
+
+              <label>Job Title</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              />
+
+              <label>Company</label>
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+              />
+
+              <label>Salary</label>
+              <input
+                type="text"
+                name="salary"
+                value={formData.salary}
+                onChange={handleChange}
+              />
+
+              <label>Qualification</label>
+              <input
+                type="text"
+                name="qualification"
+                value={formData.qualification}
+                onChange={handleChange}
+              />
+
+              <label>Skills</label>
+              <input
+                type="text"
+                name="skills"
+                value={formData.skills}
+                onChange={handleChange}
+              />
+
+              <label>Years of Experience</label>
+              <input
+                type="text"
+                name="yearsOfExp"
+                value={formData.yearsOfExp}
+                onChange={handleChange}
+              />
+
+              <label>Job Description</label>
+              <textarea
+                name="jobDesc"
+                value={formData.jobDesc}
+                onChange={handleChange}
+              />
+
+              <button type="submit">
+                Update Job
+              </button>
+
+            </form>
+          </div>
+
+        </div>
+      )}
     </div>
   );
 

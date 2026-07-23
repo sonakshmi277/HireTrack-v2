@@ -6,6 +6,7 @@ function AdminHomePage() {
 
   const navigate = useNavigate();
   const [mode, setMode] = useState("dark");
+  const [value, setValue] = useState({ totalJobs: 0 });
 
   useEffect(() => {
 
@@ -37,6 +38,26 @@ function AdminHomePage() {
 
       })
       .catch(err => console.log(err));
+
+    fetch("http://localhost:5000/jobCount", {
+      method: "GET",
+      headers: { authorization: token }
+    })
+      .then(res => {
+        if (res.status === 401 || res.status === 403) {
+          navigate("/admin");
+          return;
+        }
+        return res.json();
+
+      })
+      .then(data=>{
+        if(data){
+          console.log("Job count found");
+          setValue(data);
+        }
+      })
+      .catch(err=>console.log(err));
 
   }, []);
 
@@ -96,7 +117,7 @@ function AdminHomePage() {
       <div className="stats">
 
         <div className="statCard">
-          <h3>15</h3>
+          <h3>{ value.totalJobs}</h3>
           <p>Jobs Posted</p>
         </div>
 
@@ -242,8 +263,8 @@ function AdminHomePage() {
       </div>
 
     </div>
-  
-    
+
+
 
   );
 
