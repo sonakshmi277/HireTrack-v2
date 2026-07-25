@@ -7,7 +7,31 @@ function AdminHomePage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("dark");
   const [value, setValue] = useState({ totalJobs: 0 });
+  const [recentJobs, setRecentJobs] = useState([]);
+  const [changeJob, setChangeJob] = useState(null);
+  const [formData, setFormData] = useState({
+    id: "", title: "",
+    company: "", salary: "", skills: "", qualification: "", yearsOfExp: "", jobDesc: ""
+  });
+  function getTimeAgo(postedAt) {
+    const now = new Date();
+    const posted = new Date(postedAt);
 
+    const diff = now - posted;
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (minutes < 60) {
+      return `${minutes} min ago`;
+    }
+    if (hours < 24) {
+      return `${hours} hr ago`;
+    }
+
+    return `${days} day${days > 1 ? "s" : ""} ago`;
+  }
   useEffect(() => {
 
     const token = localStorage.getItem("token");
@@ -51,14 +75,32 @@ function AdminHomePage() {
         return res.json();
 
       })
-      .then(data=>{
-        if(data){
+      .then(data => {
+        if (data) {
           console.log("Job count found");
           setValue(data);
         }
       })
-      .catch(err=>console.log(err));
+      .catch(err => console.log(err));
 
+
+    fetch("http://localhost:5000/recentJobs", {
+      method: "GET",
+      headers: { authorization: token }
+    })
+      .then(res => {
+        if (res.status === 401 || res.status === 403) {
+          navigate("/admin");
+          return;
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (data) {
+          setRecentJobs(data);
+        }
+      })
+      .catch(err => console.log(err));
   }, []);
 
   function handleJobClick() {
@@ -67,7 +109,6 @@ function AdminHomePage() {
   function handleManageJobClick() {
     navigate("/jobPostedAdmin");
   }
-
   function handleApplicantsClick() {
     navigate("/applicantsAdmin");
   }
@@ -78,6 +119,48 @@ function AdminHomePage() {
   function handleLogOutClick() {
     localStorage.removeItem("token");
     navigate("/");
+  }
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:5000/editJob/${formData.id}`, {
+      method: "PATCH",
+      headers: { authorization: token, "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    })
+      .then(res => {
+
+        if (res.status === 401 || res.status === 403) {
+          navigate("/");
+          return;
+        }
+
+        if (res.status === 500) {
+          alert("Something went wrong on the server. Please try again later.");
+          return;
+        }
+
+        return res.json();
+      })
+      .then(data => {
+
+        setRecentJobs(prev =>
+          prev.map(job =>
+            job._id === data._id ? data : job
+          )
+        );
+        setChangeJob(null);
+
+        console.log("Job edited successfully");
+      })
+      .catch(err => console.log(err));
   }
 
   return (
@@ -117,7 +200,7 @@ function AdminHomePage() {
       <div className="stats">
 
         <div className="statCard">
-          <h3>{ value.totalJobs}</h3>
+          <h3>{value.totalJobs}</h3>
           <p>Jobs Posted</p>
         </div>
 
@@ -156,57 +239,39 @@ function AdminHomePage() {
         Recently Posted Jobs
       </h2>
 
-      <div className="jobCard">
+      {
+        recentJobs.map(job => (
+          <div className="jobCard" key={job._id}>
 
-        <div>
+            <div>
+              <h3>{job.title}</h3>
+              <p>Posted {getTimeAgo(job.postedAt)}</p>
+            </div>
 
-          <h3>Frontend Developer</h3>
+            <div>
+              <p>Applicants : 2</p>
 
-          <p>Posted 2 days ago</p>
-
-        </div>
-
-        <div>
-
-          <p>Applicants : 12</p>
-
-          <div className="links">
-
-            <span>Edit</span>
-
-            <span>Delete</span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div className="jobCard">
-
-        <div>
-
-          <h3>Backend Developer</h3>
-
-          <p>Posted Yesterday</p>
-
-        </div>
-
-        <div>
-
-          <p>Applicants : 8</p>
-
-          <div className="links">
-
-            <span>Edit</span>
-
-            <span>Delete</span>
+              <div className="links">
+                <button className="editBtn" onClick={() => {
+                  setChangeJob(job);
+                  setFormData({
+                    id: job._id,
+                    title: job.title,
+                    company: job.company,
+                    salary: job.salary,
+                    qualification: job.qualification,
+                    skills: job.skills,
+                    yearsOfExp: job.yearsOfExp,
+                    jobDesc: job.jobDesc
+                  })
+                }}>Edit</button>
+                <button>Delete</button>
+              </div>
+            </div>
 
           </div>
-
-        </div>
-
-      </div>
+        ))
+      }
 
       <h2 className="sectionTitle">
 
@@ -261,6 +326,88 @@ function AdminHomePage() {
         </div>
 
       </div>
+       {changeJob && (
+        <div className="overlay">
+
+          <div className="modal">
+
+            <div className="modalHeader">
+              <h2>{formData.title}</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setChangeJob(null)}
+              >
+                ✖
+              </button>
+            </div>
+
+
+            <form onSubmit={handleSubmit}>
+
+              <label>Job Title</label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+              />
+
+              <label>Company</label>
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+              />
+
+              <label>Salary</label>
+              <input
+                type="text"
+                name="salary"
+                value={formData.salary}
+                onChange={handleChange}
+              />
+
+              <label>Qualification</label>
+              <input
+                type="text"
+                name="qualification"
+                value={formData.qualification}
+                onChange={handleChange}
+              />
+
+              <label>Skills</label>
+              <input
+                type="text"
+                name="skills"
+                value={formData.skills}
+                onChange={handleChange}
+              />
+
+              <label>Years of Experience</label>
+              <input
+                type="text"
+                name="yearsOfExp"
+                value={formData.yearsOfExp}
+                onChange={handleChange}
+              />
+
+              <label>Job Description</label>
+              <textarea
+                name="jobDesc"
+                value={formData.jobDesc}
+                onChange={handleChange}
+              />
+
+              <button type="submit">
+                Update Job
+              </button>
+
+            </form>
+          </div>
+
+        </div>
+      )}
 
     </div>
 

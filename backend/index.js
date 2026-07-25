@@ -201,6 +201,15 @@ app.get("/jobCount",auth,async(req,res)=>{
     res.status(500).json({error:err.message});
   }
 })
+app.get("/recentJobs",auth,async(req,res)=>{
+  try{
+    const j=await Job.find().sort({postedAt:-1}).limit(2);
+    res.status(200).json(j);
+  }
+  catch(err){
+    res.status(500).json({error:err.message});
+  }
+})
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })

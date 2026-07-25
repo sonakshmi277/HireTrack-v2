@@ -425,14 +425,14 @@ html {
 
     display: flex;
 
-    justify-content: flex-end;
+
 
     gap: 18px;
 
     margin-top: 14px;
 }
 
-.links span {
+.links button {
 
     color: #60A5FA;
 
@@ -443,7 +443,7 @@ html {
     transition: .25s;
 }
 
-.links span:hover {
+.links button:hover {
 
     color: white;
 }
@@ -741,3 +741,4 @@ button,
     }
 
 }
+
