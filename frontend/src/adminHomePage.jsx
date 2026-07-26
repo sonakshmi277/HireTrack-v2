@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import "./adminHomePage.css";
-
+import { useTheme } from "./context/ThemeContext";
 function AdminHomePage() {
 
   const navigate = useNavigate();
-  const [mode, setMode] = useState("dark");
+  const { mode, toggleTheme } = useTheme();
   const [value, setValue] = useState({ totalJobs: 0 });
   const [counts, setCounts] = useState({
     pending: 0,
@@ -141,10 +141,6 @@ function AdminHomePage() {
   function handleApplicantsClick() {
     navigate("/applicantsAdmin");
   }
-  function handleMode() {
-    setMode((prev) => (prev === "dark" ? "light" : "dark"))
-  }
-
   function handleLogOutClick() {
     localStorage.removeItem("token");
     navigate("/");
@@ -208,7 +204,7 @@ function AdminHomePage() {
           <div className="logout" onClick={handleLogOutClick}>
             ⏻
           </div>
-          <div className="bg" onClick={handleMode}>
+          <div className="bg" onClick={toggleTheme}>
             ☀️
           </div>
 

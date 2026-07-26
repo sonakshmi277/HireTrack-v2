@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import "./postNewJobAdmin.css";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "./context/ThemeContext";
 
 function PostNewJobAdmin() {
 
     const navigate = useNavigate();
-    const [mode, setMode] = useState("dark");
+    const { mode, toggleTheme } = useTheme();
 
     const [formData, setFormData] = useState({
         title: "",
@@ -89,15 +90,6 @@ function PostNewJobAdmin() {
             [name]: value
         }));
 
-    }
-
-    function handleMode() {
-        setMode(prev => prev === "dark" ? "light" : "dark");
-    }
-
-    function handleLogOutClick() {
-        localStorage.removeItem("token");
-        navigate("/");
     }
 
     function handleHireTrackClick() {

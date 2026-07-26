@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import "./UserPages/newJobUser.css"
 import { useNavigate } from 'react-router-dom';
 import "./jobPostedAdmin.css";
+import { useTheme } from "./context/ThemeContext";
+
 function JobPostedAdmin() {
+  const { mode, toggleTheme } = useTheme();
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [changeJob, setChangeJob] = useState(null);
@@ -127,7 +130,7 @@ function JobPostedAdmin() {
       .catch((err) => console.log(err.message));
   }
   return (
-    <div className="jobsPage">
+    <div className={`jobsPage ${mode}`}>
 
       <div className="pageHeader">
 

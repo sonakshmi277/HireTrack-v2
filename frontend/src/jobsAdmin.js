@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React from "react";
 import "./jobAdmin.css";
-import PostNewJobAdmin from './postNewJobAdmin';
+import PostNewJobAdmin from "./postNewJobAdmin";
 
 function JobsAdmin() {
-    return (
-
-        <div className='containers'>
-            <PostNewJobAdmin/>
-        </div>
-    )
+  return (
+    <div className="containers">
+      <PostNewJobAdmin />
+    </div>
+  );
 }
 
-export default JobsAdmin
+export default JobsAdmin;

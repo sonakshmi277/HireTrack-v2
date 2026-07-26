@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import "./applicantsAdmin.css";
+import { useTheme } from "./context/ThemeContext";
+
 function ApplicantsAdmin() {
+  const { mode, toggleTheme } = useTheme();
   const [info, setInfo] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -57,7 +60,7 @@ function handleChange(id, e) {
     .catch(err => console.log(err));
 }
 return (
-    <div className="applicantsPage">
+    <div className={`applicantsPage ${mode}`}>
 
         <h1 className="pageTitle">Applicants</h1>
 

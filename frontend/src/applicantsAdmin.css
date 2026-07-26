@@ -101,11 +101,6 @@ body {
 
     transition: .25s;
 }
-
-.applicantTable tbody tr:hover{
-    background:#172033;
-}
-
 .applicantTable tbody tr:hover td{
     color:#F8FAFC;
 }
@@ -181,4 +176,86 @@ body {
     background: #334155;
 
     border-radius: 20px;
+}
+
+.applicantsPage.dark {
+    background: #0A0F1C;
+}
+
+.applicantsPage.light {
+    background: #F5F7FA;
+}
+.applicantsPage.dark .pageTitle {
+    color: white;
+}
+
+.applicantsPage.light .pageTitle {
+    color: #111827;
+}
+
+.applicantsPage.dark .pageSubtitle {
+    color: #94A3B8;
+}
+
+.applicantsPage.light .pageSubtitle {
+    color: #475569;
+}
+.applicantsPage.dark .tableContainer {
+    background: #111827;
+    border: 1px solid #223047;
+}
+
+.applicantsPage.light .tableContainer {
+    background: white;
+    border: 1px solid #D1D5DB;
+}
+.applicantsPage.dark thead {
+    background: #172033;
+}
+
+.applicantsPage.light thead {
+    background: #E2E8F0;
+}
+.applicantsPage.dark th {
+    color: white;
+}
+
+.applicantsPage.light th {
+    color: #111827;
+}
+.applicantsPage.dark td {
+    color: #CBD5E1;
+    border-top: 1px solid #223047;
+}
+
+.applicantsPage.light td {
+    color: #334155;
+    border-top: 1px solid #E5E7EB;
+}
+.applicantsPage.dark tbody tr:hover {
+    background: #172033;
+}
+
+.applicantsPage.light tbody tr:hover {
+    background: #F1F5F9;
+}
+.applicantsPage.light .statusSelect {
+    background: white;
+    color: #111827;
+    border: 1px solid #CBD5E1;
+}
+
+.applicantsPage.dark .statusSelect {
+    background: #0F172A;
+    color: white;
+    border: 1px solid #0A66C2;
+}
+/* Dark Mode */
+.applicantsPage.dark .applicantTable tbody tr:hover td {
+    color: #F8FAFC;
+}
+
+/* Light Mode */
+.applicantsPage.light .applicantTable tbody tr:hover td {
+    color: #111827;
 }

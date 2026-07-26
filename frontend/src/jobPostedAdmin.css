@@ -1,7 +1,3 @@
-/* ==========================================
-                GLOBAL
-========================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -18,10 +14,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ==========================================
-                PAGE
-========================================== */
-
 .jobsPage {
 
     min-height: 100vh;
@@ -33,10 +25,6 @@ body {
         radial-gradient(circle at bottom right, #2563EB18 0%, transparent 35%),
         #0A0F1C;
 }
-
-/* ==========================================
-            PAGE HEADER
-========================================== */
 
 .pageHeader {
 
@@ -65,9 +53,6 @@ body {
     line-height: 1.6;
 }
 
-/* ==========================================
-        TABLE CONTAINER
-========================================== */
 
 .tableContainer {
 
@@ -87,10 +72,6 @@ body {
     backdrop-filter: blur(14px);
 }
 
-/* ==========================================
-            TABLE
-========================================== */
-
 .jobTable {
 
     width: 100%;
@@ -99,10 +80,6 @@ body {
 
     min-width: 950px;
 }
-
-/* ==========================================
-            TABLE HEADER
-========================================== */
 
 .jobTable thead {
 
@@ -125,10 +102,6 @@ body {
 
     border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
-
-/* ==========================================
-                TABLE ROWS
-========================================== */
 
 .jobTable tbody tr {
 
@@ -162,10 +135,6 @@ body {
     vertical-align: middle;
 }
 
-/* ==========================================
-            JOB TITLE
-========================================== */
-
 .jobTable strong {
 
     color: white;
@@ -175,18 +144,10 @@ body {
     font-weight: 600;
 }
 
-/* ==========================================
-            COMPANY
-========================================== */
-
 .jobTable td:nth-child(2) {
 
     color: #AFC3E8;
 }
-
-/* ==========================================
-            SALARY
-========================================== */
 
 .jobTable td:nth-child(3) {
 
@@ -195,18 +156,10 @@ body {
     font-weight: 600;
 }
 
-/* ==========================================
-        EXPERIENCE
-========================================== */
-
 .jobTable td:nth-child(4) {
 
     color: #CBD5E1;
 }
-
-/* ==========================================
-            POSTED TIME
-========================================== */
 
 .jobTable td:nth-child(5) {
 
@@ -253,8 +206,6 @@ body {
     background: #162033;
 }
 
-/* View */
-
 .viewBtn {
 
     color: #60A5FA;
@@ -270,8 +221,6 @@ body {
 
     box-shadow: 0 10px 20px rgba(10, 102, 194, .35);
 }
-
-/* Edit */
 
 .editBtn {
 
@@ -289,8 +238,6 @@ body {
     box-shadow: 0 10px 20px rgba(234, 179, 8, .35);
 }
 
-/* Delete */
-
 .deleteBtn {
 
     color: #EF4444;
@@ -306,10 +253,6 @@ body {
 
     box-shadow: 0 10px 20px rgba(220, 38, 38, .35);
 }
-
-/* ==========================================
-            EMPTY STATE
-========================================== */
 
 .emptyJobs {
 
@@ -328,11 +271,6 @@ body {
 
     margin-bottom: 12px;
 }
-
-/* ==========================================
-            FADE IN
-========================================== */
-
 .tableContainer {
 
     animation: fadeIn .5s ease;
@@ -354,10 +292,6 @@ body {
         transform: translateY(0);
     }
 }
-
-/* ==========================================
-            SCROLLBAR
-========================================== */
 
 ::-webkit-scrollbar {
 
@@ -382,10 +316,6 @@ body {
 
     background: #0A66C2;
 }
-
-/* ==========================================
-            RESPONSIVE
-========================================== */
 
 @media(max-width:1200px) {
 
@@ -462,19 +392,6 @@ body {
     font-weight: 500;
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    z-index: 999;
-    backdrop-filter: blur(5px);
-}
-
 .modal {
     width: 650px;
     max-width: 90%;
@@ -489,18 +406,6 @@ body {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
 
     animation: popup 0.25s ease;
-}
-
-@keyframes popup {
-    from {
-        transform: scale(.9);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
 
 .modalHeader {
@@ -518,29 +423,6 @@ body {
     margin: 0;
     color: #4da3ff;
     font-size: 28px;
-}
-
-.closeBtn {
-    border: none;
-    background: #ef4444;
-
-    color: white;
-
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    font-size: 18px;
-
-    transition: .3s;
-}
-
-.closeBtn:hover {
-    transform: rotate(90deg);
-    background: #dc2626;
 }
 
 .modalBody {
@@ -807,4 +689,83 @@ body {
 
         font-size: 24px;
     }
+}
+
+.jobsPage.dark {
+    background: #0A0F1C;
+    color: white;
+}
+
+.jobsPage.light {
+    background: #F5F7FA;
+    color: #111827;
+}
+.jobsPage.light .pageHeader h1{
+    color:#111827;
+}
+
+.jobsPage.light .pageHeader p{
+    color:#475569;
+}
+.jobsPage.light .tableContainer{
+    background:white;
+    border:1px solid #d1d5db;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.jobsPage.light .jobTable thead{
+    background:#E2E8F0;
+}
+
+.jobsPage.light .jobTable th{
+    color:#111827;
+}
+.jobsPage.light .jobTable td{
+    color:#334155;
+    border-bottom:1px solid #E5E7EB;
+}
+
+.jobsPage.light .jobTable strong{
+    color:#111827;
+}
+
+.jobsPage.light .jobTable tbody tr:hover{
+    background:#F1F5F9;
+}
+
+.jobsPage.light .jobTable td:nth-child(2){
+    color:#475569;
+}
+.jobsPage.light .jobTable td:nth-child(3){
+    color:#2563EB;
+}
+.jobsPage.light .postedBadge{
+    background:#DBEAFE;
+    color:#1D4ED8;
+}
+.jobsPage.light .viewBtn,
+.jobsPage.light .editBtn,
+.jobsPage.light .deleteBtn{
+    background:#F3F4F6;
+}
+.jobsPage.light .modal{
+    background:white;
+    color:#111827;
+}
+.jobsPage.light .modalHeader h2{
+    color:#111827;
+}
+.jobsPage.light .detail,
+.jobsPage.light .description{
+    background:#F8FAFC;
+}
+
+.jobsPage.light .detail p,
+.jobsPage.light .description p{
+    color:#374151;
+}
+.jobsPage.light .modal input,
+.jobsPage.light .modal textarea{
+    background:white;
+    color:#111827;
+    border:1px solid #CBD5E1;
 }
