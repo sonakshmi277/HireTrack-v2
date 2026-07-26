@@ -278,8 +278,6 @@ function AdminHomePage() {
             </div>
 
             <div>
-              <p>Applicants : 2</p>
-
               <div className="links">
                 <button className="editBtn" onClick={() => {
                   setChangeJob(job);

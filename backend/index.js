@@ -244,7 +244,6 @@ app.get("/recentJobs", auth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 })
-
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })
