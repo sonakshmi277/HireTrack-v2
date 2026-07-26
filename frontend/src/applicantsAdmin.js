@@ -28,33 +28,34 @@ function ApplicantsAdmin() {
       });
   }, []);
 
-  function handleChange(id, e) {
+function handleChange(id, e) {
+
+    const newStatus = e.target.value;
+
     fetch("http://localhost:5000/changeDetail", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      }
-      ,
-      body: JSON.stringify({
-        _id: id,
-        status: e.target.value
-      })
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            _id: id,
+            status: newStatus
+        })
     })
-      .then(res => {
-        return res.json()
-      })
-      .then(data => {
-        console.log("Status updated in backend Db")
-        console.log(data);
-        setInfo(prev => prev.map(app =>
-          app._id === id ? { ...app, status: e.target.value } : app
-        ));
+    .then(res => res.json())
+    .then(data => {
 
+        setInfo(prev =>
+            prev.map(app =>
+                app._id === id
+                    ? { ...app, status: newStatus }
+                    : app
+            )
+        );
 
-      })
-      .catch(err => { console.log(err.message) });
-  }
-
+    })
+    .catch(err => console.log(err));
+}
 return (
     <div className="applicantsPage">
 
@@ -109,7 +110,7 @@ return (
                                             rel="noreferrer"
                                             className="resumeBtn"
                                         >
-                                            📄 Resume
+                                            Resume
                                         </a>
 
                                     </td>

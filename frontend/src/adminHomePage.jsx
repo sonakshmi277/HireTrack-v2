@@ -13,6 +13,7 @@ function AdminHomePage() {
     id: "", title: "",
     company: "", salary: "", skills: "", qualification: "", yearsOfExp: "", jobDesc: ""
   });
+  const [recentAppli, setrecentAppli] = useState([]);
   function getTimeAgo(postedAt) {
     const now = new Date();
     const posted = new Date(postedAt);
@@ -101,6 +102,21 @@ function AdminHomePage() {
         }
       })
       .catch(err => console.log(err));
+
+    fetch("http://localhost:5000/applidetail", {
+      method: "GET",
+      headers:{authorization:token}
+    })
+      .then(res => {
+        return res.json();
+
+      })
+      .then(data => {
+        if (data) {
+          setrecentAppli(data);
+        }
+      })
+      .catch(err => console.log(err));
   }, []);
 
   function handleJobClick() {
@@ -120,7 +136,7 @@ function AdminHomePage() {
     localStorage.removeItem("token");
     navigate("/");
   }
-    const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -264,7 +280,7 @@ function AdminHomePage() {
                     jobDesc: job.jobDesc
                   })
                 }}>Edit</button>
-                <button>Delete</button>
+      
               </div>
             </div>
 
@@ -273,59 +289,40 @@ function AdminHomePage() {
       }
 
       <h2 className="sectionTitle">
-
         Latest Applicants
-
       </h2>
 
-      <div className="applicantCard">
+      {recentAppli.map((applicant) => (
+        <div className="applicantCard" key={applicant._id}>
 
-        <div>
+          <div>
+            <h3>{applicant.user_id?.email}</h3>
 
-          <h3> Sonakshmi Bhattacharya</h3>
+            <p>
+              Applied for {applicant.job_id?.title}
+            </p>
+          </div>
 
-          <p>Applied for Frontend Developer</p>
+          <div>
 
-        </div>
+            <span className={`status ${applicant.status.toLowerCase()}`} style={{marginBottom:"20px"}}>
+              {applicant.status}
+            </span>
 
-        <div>
+            <a
+              href={`http://localhost:5000/${applicant.resume}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resumeBtn" style={{borderRadius:"45px"}}
+            >
+              Resume
+            </a>
 
-          <span className="status">
-            Pending
-          </span>
-
-          <button className="resumeBtn">
-            Resume
-          </button>
-
-        </div>
-
-      </div>
-
-      <div className="applicantCard">
-
-        <div>
-
-          <h3>Rahul Das</h3>
-
-          <p>Applied for Backend Developer</p>
+          </div>
 
         </div>
-
-        <div>
-
-          <span className="status review">
-            Reviewing
-          </span>
-
-          <button className="resumeBtn">
-            Resume
-          </button>
-
-        </div>
-
-      </div>
-       {changeJob && (
+      ))}
+      {changeJob && (
         <div className="overlay">
 
           <div className="modal">

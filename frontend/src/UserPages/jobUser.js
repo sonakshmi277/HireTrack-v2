@@ -5,6 +5,7 @@ import "./jobUser.css";
 function JobUser() {
 
     const [info, setInfo] = useState([]);
+    const[selectedAppli,setSelectedAppli]=useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -134,7 +135,7 @@ function JobUser() {
 
                                     <button
 
-                                        className="viewBtn"
+                                        className="viewBtn" onClick={()=>setSelectedAppli(inf)}
 
                                     >
 
@@ -153,8 +154,63 @@ function JobUser() {
                 </tbody>
 
             </table>
+            
 
         </div>
+        {selectedAppli && (
+    <div className="overlay">
+
+        <div className="modal">
+
+            <div className="modalHeader">
+                <h2>{selectedAppli.job_id.title}</h2>
+
+                <button
+                    className="closeBtn"
+                    onClick={() => setSelectedAppli(null)}
+                >
+                    ✖
+                </button>
+            </div>
+
+            <div className="modalBody">
+
+                <div className="detail">
+                    <span>Company</span>
+                    <p>{selectedAppli.job_id.company}</p>
+                </div>
+
+                <div className="detail">
+                    <span>Salary</span>
+                    <p>₹ {selectedAppli.job_id.salary}</p>
+                </div>
+
+                <div className="detail">
+                    <span>Qualification</span>
+                    <p>{selectedAppli.job_id.qualification}</p>
+                </div>
+
+                <div className="detail">
+                    <span>Skills</span>
+                    <p>{selectedAppli.job_id.skills}</p>
+                </div>
+
+                <div className="detail">
+                    <span>Experience</span>
+                    <p>{selectedAppli.job_id.yearsOfExp} Years</p>
+                </div>
+
+                <div className="description">
+                    <span>Job Description</span>
+                    <p>{selectedAppli.job_id.jobDesc}</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+)}
 
     </div>
 

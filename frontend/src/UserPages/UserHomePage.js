@@ -40,14 +40,6 @@ function UserHomePage() {
                     </div>
 
                     <div className="topRight">
-
-                        <div className="notification">
-                            🔔
-                        </div>
-
-                        <div className="profile">
-                            👤
-                        </div>
                         <div className="logout" onClick={handleLogOutClick}>
                             ⏻
                         </div>

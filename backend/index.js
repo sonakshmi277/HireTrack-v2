@@ -41,12 +41,12 @@ const addAdmin = async () => {
 
 app.post("/newLogIn", async (req, res) => {
   try {
-    const tb=await User.create({
+    const tb = await User.create({
       email: req.body.email,
       password: req.body.password
     });
     console.log("Info saved in db");
-    const payload = { email: req.body.email, _id:tb._id }
+    const payload = { email: req.body.email, _id: tb._id }
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' })
     return res.status(200).json({ token })
 
@@ -93,12 +93,12 @@ app.get("/UserPages/newJobUser", auth, (req, res) => {
   });
 })
 
-app.get("/availJobs", auth,async (req, res) => {
+app.get("/availJobs", auth, async (req, res) => {
   try {
     const jobs = await Job.find();
-    const appli=await applicant.find({user_id:req.user._id});
-    console.log("data found", { jobs,appli});
-    res.status(200).json({jobs,appli});
+    const appli = await applicant.find({ user_id: req.user._id });
+    console.log("data found", { jobs, appli });
+    res.status(200).json({ jobs, appli });
   } catch (err) {
     res.status(500).json({ message: "error fetching jobs" });
   }
@@ -106,8 +106,22 @@ app.get("/availJobs", auth,async (req, res) => {
 app.use("/uploads", express.static("uploads"));
 app.post("/uploadResume", auth, upload.single("resume"), async (req, res) => {
   console.log(req.file);
-
   try {
+    const exists = await applicant.findOne({
+      user_id: req.user._id,
+      job_id: req.body.job_id
+    });
+
+    if (exists) {
+      return res.status(400).json({
+        message: "Already applied for this job."
+      });
+    }
+    if (!req.file) {
+      return res.status(400).json({
+        message: "Please upload a resume."
+      });
+    }
     await applicant.create({
       user_id: req.user._id,
       job_id: req.body.job_id,
@@ -124,92 +138,94 @@ app.post("/uploadResume", auth, upload.single("resume"), async (req, res) => {
   }
 });
 
-app.get("/applidetail",auth,async (req,res)=>{
-  try{
-  const applicants=await applicant.find().populate("job_id").populate("user_id");
-  console.log("Data found");
-  res.status(200).json(applicants)
+app.get("/applidetail", auth, async (req, res) => {
+  try {
+    const applicants = await applicant.find().populate("job_id").populate("user_id");
+    console.log("Data found");
+    res.status(200).json(applicants)
 
-  }catch(err){
-    res.status(500).json({error:err.message})
+  } catch (err) {
+    res.status(500).json({ error: err.message })
   }
 })
 
-app.patch("/changeDetail",async (req,res)=>{
-  try{
-   const updated= await applicant.findByIdAndUpdate(
-      req.body._id,{
-        $set:{
-          status:req.body.status
-        }
-      },
-          { new: true }
+app.patch("/changeDetail", async (req, res) => {
+  try {
+    const updated = await applicant.findByIdAndUpdate(
+      req.body._id, {
+      $set: {
+        status: req.body.status
+      }
+    },
+      { new: true }
     )
     console.log("Data changed")
     res.status(200).json(updated)
   }
-  catch(err){
-    res.status(500).json({message:err})
+  catch (err) {
+    res.status(500).json({ message: err })
   }
 })
 
-app.delete("/manageDel/:id",auth,async (req, res) => {
+app.delete("/manageDel/:id", auth, async (req, res) => {
   try {
-    const jobId=req.params.id;
-    await Job.deleteOne({_id:jobId})
-    await Appli.deleteMany({job_id:jobId});
+    const jobId = req.params.id;
+    await Job.deleteOne({ _id: jobId })
+    await Appli.deleteMany({ job_id: jobId });
     const jobs = await Job.find();
-    const appli=await applicant.find({user_id:req.user._id});
-    console.log("data found", { jobs,appli});
-    res.status(200).json({jobs,appli});
+    const appli = await applicant.find({ user_id: req.user._id });
+    console.log("data found", { jobs, appli });
+    res.status(200).json({ jobs, appli });
   } catch (err) {
     res.status(500).json({ message: "error fetching jobs" });
-  }})
+  }
+})
 
 
-app.patch("/editJob/:id",auth, async(req,res)=>{
-  try{
-    const jobId=req.params.id;
-    const updatedJob=await Job.findByIdAndUpdate(
+app.patch("/editJob/:id", auth, async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const updatedJob = await Job.findByIdAndUpdate(
       jobId,
       {
-        $set:{
-          company:req.body.company,
-          title:req.body.title,
-          salary:req.body.salary,
+        $set: {
+          company: req.body.company,
+          title: req.body.title,
+          salary: req.body.salary,
           qualification: req.body.qualification,
           skills: req.body.skills,
           yearsOfExp: req.body.yearsOfExp,
           jobDesc: req.body.jobDesc
         }
       },
-      {new:true}
+      { new: true }
     );
     res.status(200).json(updatedJob);
 
-  } catch(err){
-    res.status(500).json({error:err.message});
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 })
 
-app.get("/jobCount",auth,async(req,res)=>{
-  try{
-    const ct=await Job.countDocuments();
-    res.status(200).json({totalJobs:ct});
+app.get("/jobCount", auth, async (req, res) => {
+  try {
+    const ct = await Job.countDocuments();
+    res.status(200).json({ totalJobs: ct });
   }
-  catch(err){
-    res.status(500).json({error:err.message});
+  catch (err) {
+    res.status(500).json({ error: err.message });
   }
 })
-app.get("/recentJobs",auth,async(req,res)=>{
-  try{
-    const j=await Job.find().sort({postedAt:-1}).limit(2);
+app.get("/recentJobs", auth, async (req, res) => {
+  try {
+    const j = await Job.find().sort({ postedAt: -1 }).limit(2);
     res.status(200).json(j);
   }
-  catch(err){
-    res.status(500).json({error:err.message});
+  catch (err) {
+    res.status(500).json({ error: err.message });
   }
 })
+
 app.listen(5000, () => {
   console.log("port is running at 5000")
 })

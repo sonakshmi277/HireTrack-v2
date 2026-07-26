@@ -194,35 +194,42 @@ function JobPostedAdmin() {
                       </span>
                     </td>
 
+
                     <td>
+                      <div className="actionBtns">
+                        <button
+                          className="viewBtn"
+                          onClick={() => setSelectedJob(job)}
+                        >
+                          👁
+                        </button>
 
-                      <button
-                        className="viewBtn" onClick={() => setSelectedJob(job)}
-                      >
-                        👁
-                      </button>
-                      <button className="editBtn" onClick={() => {
-                        setChangeJob(job);
-                        setFormData({
-                          id: job._id,
-                          title: job.title,
-                          company: job.company,
-                          salary: job.salary,
-                          qualification: job.qualification,
-                          skills: job.skills,
-                          yearsOfExp: job.yearsOfExp,
-                          jobDesc: job.jobDesc
-                        })
-                      }}>
-                        ✏️
-                      </button>
-                      <button
-                        className="deleteBtn"
-                        onClick={() => manageDelete(job._id)}
-                      >
-                        🗑
-                      </button>
+                        <button
+                          className="editBtn"
+                          onClick={() => {
+                            setChangeJob(job);
+                            setFormData({
+                              id: job._id,
+                              title: job.title,
+                              company: job.company,
+                              salary: job.salary,
+                              qualification: job.qualification,
+                              skills: job.skills,
+                              yearsOfExp: job.yearsOfExp,
+                              jobDesc: job.jobDesc
+                            });
+                          }}
+                        >
+                          ✏️
+                        </button>
 
+                        <button
+                          className="deleteBtn"
+                          onClick={() => manageDelete(job._id)}
+                        >
+                          🗑
+                        </button>
+                      </div>
                     </td>
 
                   </tr>
