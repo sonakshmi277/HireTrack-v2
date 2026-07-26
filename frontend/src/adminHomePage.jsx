@@ -184,7 +184,6 @@ function AdminHomePage() {
           </div>
 
         </div>
-
       </div>
 
       <div className="welcome">
