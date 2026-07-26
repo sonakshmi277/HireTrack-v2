@@ -7,6 +7,12 @@ function AdminHomePage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("dark");
   const [value, setValue] = useState({ totalJobs: 0 });
+  const [counts, setCounts] = useState({
+    pending: 0,
+    interview: 0,
+    selected: 0,
+    rejected: 0
+  });
   const [recentJobs, setRecentJobs] = useState([]);
   const [changeJob, setChangeJob] = useState(null);
   const [formData, setFormData] = useState({
@@ -64,6 +70,15 @@ function AdminHomePage() {
       })
       .catch(err => console.log(err));
 
+    fetch("http://localhost:5000/applicationCounts", {
+      headers: {
+        authorization: token
+      }
+    })
+      .then(res => res.json())
+      .then(data => setCounts(data))
+      .catch(err => console.log(err));
+
     fetch("http://localhost:5000/jobCount", {
       method: "GET",
       headers: { authorization: token }
@@ -74,7 +89,6 @@ function AdminHomePage() {
           return;
         }
         return res.json();
-
       })
       .then(data => {
         if (data) {
@@ -83,7 +97,6 @@ function AdminHomePage() {
         }
       })
       .catch(err => console.log(err));
-
 
     fetch("http://localhost:5000/recentJobs", {
       method: "GET",
@@ -105,7 +118,7 @@ function AdminHomePage() {
 
     fetch("http://localhost:5000/applidetail", {
       method: "GET",
-      headers:{authorization:token}
+      headers: { authorization: token }
     })
       .then(res => {
         return res.json();
@@ -220,19 +233,20 @@ function AdminHomePage() {
         </div>
 
         <div className="statCard">
-          <h3>64</h3>
-          <p>Applications</p>
+          <h3>{counts.interview}</h3>
+          <p>Called for Interview</p>
         </div>
 
         <div className="statCard">
-          <h3>18</h3>
+          <h3>{counts.pending}</h3>
           <p>Pending Review</p>
         </div>
 
         <div className="statCard">
-          <h3>12</h3>
+          <h3>{counts.selected}</h3>
           <p>Selected</p>
         </div>
+        
 
       </div>
 
@@ -280,7 +294,7 @@ function AdminHomePage() {
                     jobDesc: job.jobDesc
                   })
                 }}>Edit</button>
-      
+
               </div>
             </div>
 
@@ -305,7 +319,7 @@ function AdminHomePage() {
 
           <div>
 
-            <span className={`status ${applicant.status.toLowerCase()}`} style={{marginBottom:"20px"}}>
+            <span className={`status ${applicant.status.toLowerCase()}`} style={{ marginBottom: "20px" }}>
               {applicant.status}
             </span>
 
@@ -313,7 +327,7 @@ function AdminHomePage() {
               href={`http://localhost:5000/${applicant.resume}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="resumeBtn" style={{borderRadius:"45px"}}
+              className="resumeBtn" style={{ borderRadius: "45px" }}
             >
               Resume
             </a>

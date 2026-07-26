@@ -216,6 +216,25 @@ app.get("/jobCount", auth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 })
+app.get("/applicationCounts", auth, async (req, res) => {
+  try {
+    const [pending, interview, selected, rejected] = await Promise.all([
+      Appli.countDocuments({ status: "Pending" }),
+      Appli.countDocuments({ status: "Interview" }),
+      Appli.countDocuments({ status: "Selected" }),
+      Appli.countDocuments({ status: "Rejected" })
+    ]);
+
+    res.json({
+      pending,
+      interview,
+      selected,
+      rejected
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 app.get("/recentJobs", auth, async (req, res) => {
   try {
     const j = await Job.find().sort({ postedAt: -1 }).limit(2);

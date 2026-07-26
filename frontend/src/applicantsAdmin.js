@@ -132,13 +132,16 @@ return (
                                             </option>
 
                                             <option value="Reviewing">
-                                                Reviewing
+                                                Under review
                                             </option>
 
                                             <option value="Selected">
                                                 Selected
                                             </option>
 
+                                            <option value="Interview">
+                                                Called for interview
+                                            </option>
                                         </select>
 
                                     </td>
