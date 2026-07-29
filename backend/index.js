@@ -180,8 +180,6 @@ app.delete("/manageDel/:id", auth, async (req, res) => {
     res.status(500).json({ message: "error fetching jobs" });
   }
 })
-
-
 app.patch("/editJob/:id", auth, async (req, res) => {
   try {
     const jobId = req.params.id;
