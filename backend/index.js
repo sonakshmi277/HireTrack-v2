@@ -204,6 +204,7 @@ app.patch("/editJob/:id", auth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 })
+
 app.get("/jobCount", auth, async (req, res) => {
   try {
     const ct = await Job.countDocuments();
