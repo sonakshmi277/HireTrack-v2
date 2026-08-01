@@ -214,6 +214,7 @@ app.get("/jobCount", auth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 })
+
 app.get("/applicationCounts", auth, async (req, res) => {
   try {
     const [pending, interview, selected, rejected] = await Promise.all([
