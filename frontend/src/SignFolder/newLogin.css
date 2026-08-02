@@ -1,0 +1,159 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+body{
+
+    background:#0A0F1C;
+}
+
+.loginPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#0A66C220 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#2563EB20 0%,transparent 35%),
+    #0A0F1C;
+
+}
+
+.loginCard{
+
+    width:420px;
+
+    background:#111827;
+
+    border-radius:22px;
+
+    padding:45px;
+
+    box-shadow:0 25px 45px rgba(0,0,0,.35);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.loginCard h1{
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+.loginCard p{
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+
+    font-size:16px;
+
+}
+
+.inputGroup{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:22px;
+
+}
+
+.inputGroup label{
+
+    color:#CBD5E1;
+
+    margin-bottom:8px;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.inputGroup input{
+
+    padding:15px 18px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#1E293B;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+.inputGroup input::placeholder{
+
+    color:#64748B;
+
+}
+
+.inputGroup input:focus{
+
+    border-color:#0A66C2;
+
+    box-shadow:0 0 0 4px rgba(10,102,194,.18);
+
+}
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#0A66C2;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    background:#004182;
+
+    transform:translateY(-2px);
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}

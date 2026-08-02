@@ -11,7 +11,9 @@ function AdminHomePage() {
     pending: 0,
     interview: 0,
     selected: 0,
-    rejected: 0
+    rejected: 0,
+    appliCt:0,
+    reviewing:0
   });
   const [recentJobs, setRecentJobs] = useState([]);
   const [changeJob, setChangeJob] = useState(null);

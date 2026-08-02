@@ -217,18 +217,22 @@ app.get("/jobCount", auth, async (req, res) => {
 
 app.get("/applicationCounts", auth, async (req, res) => {
   try {
-    const [pending, interview, selected, rejected] = await Promise.all([
+    const [pending, interview, selected, rejected, appliCt,reviewing] = await Promise.all([
       Appli.countDocuments({ status: "Pending" }),
       Appli.countDocuments({ status: "Interview" }),
       Appli.countDocuments({ status: "Selected" }),
-      Appli.countDocuments({ status: "Rejected" })
+      Appli.countDocuments({ status: "Rejected" }),
+      Appli.countDocuments(),
+      Appli.countDocuments({status:"Reviewing"})
     ]);
 
     res.json({
       pending,
       interview,
       selected,
-      rejected
+      rejected,
+      appliCt,
+      reviewing
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -1,7 +1,3 @@
-/* ==========================
-        GLOBAL
-========================== */
-
 *{
     margin:0;
     padding:0;
@@ -13,10 +9,6 @@ body{
     background:#0A0F1C;
     color:#F3F6F8;
 }
-
-/* ==========================
-        PAGE
-========================== */
 
 .jobsPage{
 
@@ -51,52 +43,9 @@ body{
     font-size:17px;
 }
 
-/* ==========================
-        TABLE
-========================== */
-
-.tableContainer{
-
-    width:100%;
-
-    overflow-x:auto;
-
-    border-radius:18px;
-
-    border:1px solid rgba(255,255,255,.06);
-
-    background:#111827;
-
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
-
-    overflow:hidden;
-}
-
-.jobsTable{
-
-    width:100%;
-
-    border-collapse:collapse;
-}
-
 .jobsTable thead{
 
     background:#162033;
-}
-
-.jobsTable th{
-
-    padding:22px 20px;
-
-    text-align:left;
-
-    color:#E5E7EB;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    letter-spacing:.4px;
 }
 
 .jobsTable tbody tr{
@@ -111,50 +60,6 @@ body{
     background:#172135;
 }
 
-.jobsTable td{
-
-    padding:22px 20px;
-
-    color:#CBD5E1;
-
-    font-size:15px;
-
-    vertical-align:middle;
-}
-
-.jobsTable strong{
-
-    color:white;
-
-    font-size:16px;
-}
-/* ==========================
-        STATUS BADGES
-========================== */
-
-.status{
-
-    display:inline-flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    min-width:110px;
-
-    padding:8px 18px;
-
-    border-radius:30px;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    text-transform:capitalize;
-}
-
-/* Not Applied */
-
 .notApplied{
 
     background:#475569;
@@ -162,7 +67,6 @@ body{
     color:white;
 }
 
-/* Pending */
 
 .pending{
 
@@ -171,7 +75,6 @@ body{
     color:#111827;
 }
 
-/* Reviewing */
 
 .reviewing{
 
@@ -180,7 +83,6 @@ body{
     color:white;
 }
 
-/* Selected */
 
 .selected{
 
@@ -189,39 +91,11 @@ body{
     color:white;
 }
 
-/* Rejected */
-
 .rejected{
 
     background:#EF4444;
 
     color:white;
-}
-
-
-/* ==========================
-        ACTION BUTTON
-========================== */
-
-.viewBtn{
-
-    width:46px;
-
-    height:46px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#162033;
-
-    color:#60A5FA;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    transition:.3s;
 }
 
 .viewBtn:hover{
@@ -236,10 +110,6 @@ body{
 }
 
 
-/* ==========================
-        TABLE ANIMATION
-========================== */
-
 .jobsTable tbody tr{
 
     transition:
@@ -251,11 +121,6 @@ body{
 
     transform:scale(1.01);
 }
-
-
-/* ==========================
-        SCROLLBAR
-========================== */
 
 ::-webkit-scrollbar{
 
@@ -280,11 +145,6 @@ body{
 
     background:#0A66C2;
 }
-
-
-/* ==========================
-        RESPONSIVE
-========================== */
 
 @media(max-width:1100px){
 
@@ -318,11 +178,6 @@ body{
     }
 
 }
-
-/* ==========================
-        EXTRA POLISH
-========================== */
-
 .pageHeader{
     margin-bottom:45px;
 }
@@ -380,6 +235,13 @@ body{
 
     margin-bottom:25px;
 }
+.modalBody{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:25px;
+    align-items:stretch;
+}
 
 .modalHeader h2{
     font-size:34px;
@@ -406,23 +268,16 @@ body{
 .closeBtn:hover{
     background:#0A66C2;
 }
-.modalBody{
 
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:18px;
-
-    margin-bottom:25px;
-}
 .detail{
-
     background:#1E293B;
-
     padding:18px;
-
     border-radius:14px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-height:95px;
 }
 
 .detail span{
@@ -443,8 +298,7 @@ body{
     font-size:17px;
 }
 .description{
-
-    grid-column:1/3;
+    grid-column:1 / -1;
 
     background:#1E293B;
 
@@ -487,15 +341,17 @@ body{
 
     color:white;
 }
-/* Upload Section */
 .uploadSection{
     background:#202b3d;
     border-radius:14px;
     padding:22px;
     margin-top:20px;
     border:1px solid rgba(255,255,255,.06);
-}
 
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
 .uploadSection span{
     display:block;
     font-size:15px;
@@ -525,12 +381,15 @@ body{
 .uploadSection input[type="file"]::file-selector-button:hover{
     background:#004182;
 }
-
-/* Apply button */
 .applyBtn{
     width:100%;
     margin-top:24px;
     padding:16px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
     background:#0A66C2;
     color:white;
     border:none;
@@ -549,9 +408,6 @@ body{
 .applyBtn:active{
     transform:scale(.98);
 }
-/* ==========================
-        LIGHT MODE
-========================== */
 
 .jobsPage.light {
     background: #F5F7FA;
@@ -566,7 +422,6 @@ body{
     color: #475569;
 }
 
-/* Table */
 
 .jobsPage.light .tableContainer {
     background: white;
@@ -593,7 +448,6 @@ body{
     background: #F8FAFC;
 }
 
-/* Modal */
 
 .jobsPage.light .modal {
     background: white;
@@ -632,13 +486,9 @@ body{
     color: #111827;
 }
 
-/* File input */
-
 .jobsPage.light .uploadSection input[type="file"] {
     color: #111827;
 }
-
-/* View button */
 
 .jobsPage.light .viewBtn {
     background: #E5E7EB;
@@ -648,4 +498,221 @@ body{
 .jobsPage.light .viewBtn:hover {
     background: #2563EB;
     color: white;
+}
+.jobsTable th:nth-child(6),
+.jobsTable td:nth-child(6),
+.jobsTable th:nth-child(7),
+.jobsTable td:nth-child(7){
+    text-align:center;
+}
+
+.jobsTable td:nth-child(6),
+.jobsTable td:nth-child(7){
+    vertical-align:middle;
+}
+
+.jobsTable td:nth-child(6){
+    display:table-cell;
+}
+.tableContainer{
+    width:100%;
+    overflow:hidden;
+
+    background:#111827;
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:22px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.30);
+}
+.jobsTable{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+.jobsTable th{
+    padding:28px 24px;
+
+    text-align:left;
+
+    font-size:22px;
+
+    font-weight:600;
+
+    color:#E5E7EB;
+
+    background:#162033;
+
+    white-space:nowrap;
+}.jobsTable td{
+    padding:32px 24px;
+
+    font-size:21px;
+
+    color:#CBD5E1;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    vertical-align:middle;
+}
+.jobsTable strong{
+    color:white;
+    font-size:23px;
+    font-weight:600;
+}
+.status{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+
+    min-width:145px;
+    height:42px;
+
+    border-radius:30px;
+
+    font-size:17px;
+
+    font-weight:500;
+}
+.viewBtn{
+    width:54px;
+    height:54px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#162033;
+
+    color:#60A5FA;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.jobsTable th:last-child,
+.jobsTable td:last-child{
+    text-align:center;
+}
+
+.jobsTable tbody tr{
+    height:92px;
+}
+
+.jobsTable td:first-child{
+    font-weight:600;
+    color:#F8FAFC;
+}
+.jobsTable td:nth-child(5){
+    color:#60A5FA;
+    font-weight:500;
+}
+.jobsPage.light .tableContainer{
+    background:#ffffff;
+    border:1px solid #E5E7EB;
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+.jobsPage.light .jobsTable{
+    background:#ffffff;
+}
+
+.jobsPage.light .jobsTable thead{
+    background:#EEF2F7;
+}
+
+.jobsPage.light .jobsTable th{
+    background:#EEF2F7;
+    color:#111827;
+}
+
+.jobsPage.light .jobsTable td{
+    background:#ffffff;
+    color:#374151;
+    border-top:1px solid #E5E7EB;
+}
+
+.jobsPage.light .jobsTable tbody tr{
+    background:#ffffff;
+}
+
+.jobsPage.light .jobsTable tbody tr:hover{
+    background:#F8FAFC;
+}
+
+.jobsPage.light .jobsTable td:first-child{
+    color:#111827;
+    font-weight:600;
+}
+
+.jobsPage.light .jobsTable td:nth-child(5){
+    color:#2563EB;
+}
+
+.jobsPage.light .jobsTable strong{
+    color:#111827;
+}
+
+.jobsPage.light .viewBtn{
+    background:#E5E7EB;
+    color:#2563EB;
+}
+
+.jobsPage.light .viewBtn:hover{
+    background:#2563EB;
+    color:white;
+}
+.jobsPage.light .modal{
+    background:#ffffff;
+}
+
+.jobsPage.light .modalHeader h2{
+    color:#111827;
+}
+
+.jobsPage.light .detail{
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+}
+
+.jobsPage.light .description{
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+}
+
+.jobsPage.light .uploadSection{
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+}
+
+.jobsPage.light .detail p,
+.jobsPage.light .description p{
+    color:#111827;
+}
+
+.jobsPage.light .detail span,
+.jobsPage.light .description span,
+.jobsPage.light .uploadSection span{
+    color:#2563EB;
+}
+
+.jobsPage.light .uploadSection input[type="file"]{
+    color:#111827;
+}
+.jobsTable tbody tr:hover{
+    background:#172135;
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+}
+.jobsPage.light .jobsTable tbody tr:hover{
+    background:#F8FAFC;
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
 }

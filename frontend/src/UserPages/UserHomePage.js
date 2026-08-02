@@ -8,6 +8,14 @@ function UserHomePage() {
 
     const navigate = useNavigate();
     const [recentJobs, setRecentJobs] = useState([]);
+    const [counts, setCounts] = useState({
+        pending: 0,
+        interview: 0,
+        selected: 0,
+        rejected: 0,
+        appliCt: 0,
+        reviewing: 0
+    });
     function getTimeAgo(postedAt) {
         const now = new Date();
         const posted = new Date(postedAt);
@@ -61,6 +69,15 @@ function UserHomePage() {
                 }
             })
             .catch(err => console.log(err));
+
+        fetch("http://localhost:5000/applicationCounts", {
+            headers: {
+                authorization: token
+            }
+        })
+            .then(res => res.json())
+            .then(data => setCounts(data))
+            .catch(err => console.log(err));
     }, []);
     return (
 
@@ -103,22 +120,22 @@ function UserHomePage() {
                 <div className="stats">
 
                     <div className="statCard">
-                        <h2>6</h2>
+                        <h2>{counts.appliCt}</h2>
                         <p>Applications</p>
                     </div>
 
                     <div className="statCard">
-                        <h2>3</h2>
+                        <h2>{counts.pending}</h2>
                         <p>Pending</p>
                     </div>
 
                     <div className="statCard">
-                        <h2>2</h2>
+                        <h2>{counts.reviewing}</h2>
                         <p>Reviewing</p>
                     </div>
 
                     <div className="statCard">
-                        <h2>1</h2>
+                        <h2>{counts.selected}</h2>
                         <p>Selected</p>
                     </div>
 
@@ -147,28 +164,24 @@ function UserHomePage() {
                 {recentJobs.map(job => (
                     <div className="jobCard" key={job._id}>
 
-                        <div>
-                            <h3>{job.title}</h3>
-                            <p>{job.company}</p>
+                        <div className="jobLeft">
+                            <h3><strong>Job Title:</strong> {job.title}</h3>
+                            <p><strong>Company:</strong> {job.company}</p>
                         </div>
-
                         <div className="jobRight">
 
-                            <p>Posted {getTimeAgo(job.postedAt)}</p>
+                            <p className="posted">
+                                Posted {getTimeAgo(job.postedAt)}
+                            </p>
 
-                            <h3>₹ {job.salary}</h3>
-
-                            <span className="notApplied">
-                                New
-                            </span>
+                            <h3 className="salary">
+                                ₹ {job.salary}
+                            </h3>
 
                             <div className="jobBtns">
-
                                 <button onClick={() => setSelectedJob(job)}>
                                     View
                                 </button>
-
-
                             </div>
 
                         </div>

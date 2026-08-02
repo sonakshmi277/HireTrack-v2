@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./newLogin.css";
 
 function NewLogin() {
-    const navigate=useNavigate();
-    const [formData, setFormData] = useState({ email: "", password: "" });
+
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+
     const handleSubmit = (e) => {
+
         e.preventDefault();
-        if (formData.email !== "" && formData.password !== "") {
-            console.log("Form submitted");
-        }
-        else {
-            alert("Please fill all details")
+
+        if (!formData.email || !formData.password) {
+            alert("Please fill all details");
+            return;
         }
 
         fetch("http://localhost:5000/newLogIn", {
@@ -22,34 +29,87 @@ function NewLogin() {
         })
             .then(res => res.json())
             .then(data => {
+
                 if (data.token) {
-                    console.log("Data saved successfully")
-                    localStorage.setItem("token", data.token)
-                    console.log("token saved", data.token)
-                    return navigate("/UserPages/UserHomePage")
+
+                    localStorage.setItem("token", data.token);
+
+                    navigate("/UserPages/UserHomePage");
+
+                } else {
+
+                    alert("Invalid email or password");
+
                 }
-                else {
-                    console.log("There's a problem, data not saved")
-                }
+
             })
             .catch(err => console.log(err));
+
     };
+
     const handleChange = (e) => {
+
         const { name, value } = e.target;
-        setFormData((prev) => ({
+
+        setFormData(prev => ({
             ...prev,
             [name]: value
         }));
+
     };
+
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
-                <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
-                <button type="submit">Login</button>
-            </form>
+
+        <div className="loginPage">
+
+            <div className="loginCard">
+
+                <h1>Welcome</h1>
+
+                <p>Create an account</p>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="inputGroup">
+
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+
+                    </div>
+
+                    <div className="inputGroup">
+
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+
+                    </div>
+
+                    <button type="submit">
+                        Login
+                    </button>
+
+                </form>
+
+            </div>
+
         </div>
-    )
+
+    );
+
 }
 
-export default NewLogin
+export default NewLogin;
