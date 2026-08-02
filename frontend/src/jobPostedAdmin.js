@@ -5,7 +5,7 @@ import "./jobPostedAdmin.css";
 import { useTheme } from "./context/ThemeContext";
 
 function JobPostedAdmin() {
-  const { mode, toggleTheme } = useTheme();
+  const { mode } = useTheme();
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [changeJob, setChangeJob] = useState(null);

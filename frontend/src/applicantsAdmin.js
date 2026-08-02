@@ -4,7 +4,7 @@ import "./applicantsAdmin.css";
 import { useTheme } from "./context/ThemeContext";
 
 function ApplicantsAdmin() {
-  const { mode, toggleTheme } = useTheme();
+  const { mode } = useTheme();
   const [info, setInfo] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {

@@ -46,6 +46,52 @@ body {
 
 .app.light .applicantCard p {
     color: black;
+}/* ---------- LIGHT MODE MODAL ---------- */
+
+.app.light .modal{
+    background:#ffffff;
+    color:#111827;
+    border:1px solid #d1d5db;
+}
+
+.app.light .modalHeader h2{
+    color:#111827;
+}
+
+.app.light .modal label{
+    color:#2563eb;
+}
+
+.app.light .modal input,
+.app.light .modal textarea{
+    background:#f3f4f6;
+    color:#111827;
+    border:1px solid #d1d5db;
+}
+
+.app.light .modal input:focus,
+.app.light .modal textarea:focus{
+    background:#ffffff;
+    border:1px solid #2563eb;
+}
+
+.app.light .closeBtn{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+.app.light .closeBtn:hover{
+    background:#ef4444;
+    color:white;
+}
+
+.app.light .modal button[type="submit"]{
+    background:#2563eb;
+    color:white;
+}
+
+.app.light .modal button[type="submit"]:hover{
+    background:#1d4ed8;
 }
 
 .box:hover {

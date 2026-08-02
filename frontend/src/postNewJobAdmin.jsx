@@ -6,7 +6,7 @@ import { useTheme } from "./context/ThemeContext";
 function PostNewJobAdmin() {
 
     const navigate = useNavigate();
-    const { mode, toggleTheme } = useTheme();
+    const { mode} = useTheme();
 
     const [formData, setFormData] = useState({
         title: "",

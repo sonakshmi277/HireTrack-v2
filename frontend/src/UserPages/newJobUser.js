@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from "../context/ThemeContext";
 import "./newJobUser.css"
 
 function NewJobUser() {
 
     const navigate = useNavigate();
-
+    const { mode} = useTheme();
     const [jobs, setJobs] = useState([]);
     const [appl, setAppli] = useState([]);
     const [file, setFile] = useState(null);
@@ -142,7 +143,7 @@ function NewJobUser() {
 
     return (
 
-        <div className="jobsPage">
+        <div className={`jobsPage ${mode}`}>
 
             <div className="pageHeader">
 

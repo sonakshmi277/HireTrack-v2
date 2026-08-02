@@ -549,3 +549,103 @@ body{
 .applyBtn:active{
     transform:scale(.98);
 }
+/* ==========================
+        LIGHT MODE
+========================== */
+
+.jobsPage.light {
+    background: #F5F7FA;
+    color: #111827;
+}
+
+.jobsPage.light .pageHeader h1 {
+    color: #111827;
+}
+
+.jobsPage.light .pageHeader p {
+    color: #475569;
+}
+
+/* Table */
+
+.jobsPage.light .tableContainer {
+    background: white;
+    border: 1px solid #E5E7EB;
+}
+
+.jobsPage.light .jobsTable thead {
+    background: #EEF2F7;
+}
+
+.jobsPage.light .jobsTable th {
+    color: #111827;
+}
+
+.jobsPage.light .jobsTable td {
+    color: #374151;
+}
+
+.jobsPage.light .jobsTable strong {
+    color: #111827;
+}
+
+.jobsPage.light .jobsTable tbody tr:hover {
+    background: #F8FAFC;
+}
+
+/* Modal */
+
+.jobsPage.light .modal {
+    background: white;
+    color: #111827;
+}
+
+.jobsPage.light .modalHeader h2 {
+    color: #111827;
+}
+
+.jobsPage.light .closeBtn {
+    background: #E5E7EB;
+    color: #111827;
+}
+
+.jobsPage.light .closeBtn:hover {
+    background: #DC2626;
+    color: white;
+}
+
+.jobsPage.light .detail,
+.jobsPage.light .description,
+.jobsPage.light .uploadSection {
+    background: #F8FAFC;
+    border: 1px solid #E5E7EB;
+}
+
+.jobsPage.light .detail span,
+.jobsPage.light .description span,
+.jobsPage.light .uploadSection span {
+    color: #2563EB;
+}
+
+.jobsPage.light .detail p,
+.jobsPage.light .description p {
+    color: #111827;
+}
+
+/* File input */
+
+.jobsPage.light .uploadSection input[type="file"] {
+    color: #111827;
+}
+
+/* View button */
+
+.jobsPage.light .viewBtn {
+    background: #E5E7EB;
+    color: #2563EB;
+}
+
+.jobsPage.light .viewBtn:hover {
+    background: #2563EB;
+    color: white;
+}

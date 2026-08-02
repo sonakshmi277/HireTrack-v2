@@ -1,12 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../adminHomePage.css";
+import { useTheme } from "../context/ThemeContext";
+
 import "./UserHomePage.css";
 
 function UserHomePage() {
 
     const navigate = useNavigate();
-    const [mode,setMode]=useState("dark");
+    const [recentJobs, setRecentJobs] = useState([]);
+    function getTimeAgo(postedAt) {
+        const now = new Date();
+        const posted = new Date(postedAt);
+
+        const diff = now - posted;
+
+        const minutes = Math.floor(diff / (1000 * 60));
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        if (minutes < 60) {
+            return `${minutes} min ago`;
+        }
+        if (hours < 24) {
+            return `${hours} hr ago`;
+        }
+
+        return `${days} day${days > 1 ? "s" : ""} ago`;
+    }
+    const [selectedJob, setSelectedJob] = useState(null);
+    const { mode, toggleTheme } = useTheme();
     function handleJobClick() {
         navigate("/UserPages/jobUser");
     }
@@ -15,19 +37,36 @@ function UserHomePage() {
         navigate("/UserPages/newJobUser");
     }
 
-    function handleMode(){
-        setMode(prev=>(prev==="dark"?"light":"dark"))
-    }
     function handleLogOutClick() {
         localStorage.removeItem("token");
         navigate("/");
     }
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
+        fetch("http://localhost:5000/recentJobs", {
+            method: "GET",
+            headers: { authorization: token }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    navigate("/admin");
+                    return;
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data) {
+                    setRecentJobs(data);
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
     return (
 
         <div className={`app ${mode}`} >
 
-           
+
 
             <div className="dashboard">
 
@@ -43,7 +82,7 @@ function UserHomePage() {
                         <div className="logout" onClick={handleLogOutClick}>
                             ⏻
                         </div>
-                        <div className="bg" onClick={handleMode}>
+                        <div className="bg" onClick={toggleTheme}>
                             ☀️
                         </div>
 
@@ -96,7 +135,7 @@ function UserHomePage() {
                     </button>
 
                     <button onClick={handleJobClick}>
-                         My Applications
+                        My Applications
                     </button>
 
                 </div>
@@ -105,87 +144,98 @@ function UserHomePage() {
                     New Jobs
                 </h2>
 
-                <div className="jobCard">
+                {recentJobs.map(job => (
+                    <div className="jobCard" key={job._id}>
 
-                    <div>
+                        <div>
+                            <h3>{job.title}</h3>
+                            <p>{job.company}</p>
+                        </div>
 
-                        <h3>Frontend Developer</h3>
+                        <div className="jobRight">
 
-                        <p>Cognizant</p>
+                            <p>Posted {getTimeAgo(job.postedAt)}</p>
 
-                        <span className="skills">
-                            React • Node • MongoDB
-                        </span>
+                            <h3>₹ {job.salary}</h3>
 
-                    </div>
+                            <span className="notApplied">
+                                New
+                            </span>
 
-                    <div className="jobRight">
+                            <div className="jobBtns">
 
-                        <p>Posted 2 hrs ago</p>
+                                <button onClick={() => setSelectedJob(job)}>
+                                    View
+                                </button>
 
-                        <h3>₹6 LPA</h3>
 
-                        <span className="pending">
-                            Pending
-                        </span>
-
-                        <div className="jobBtns">
-
-                            <button>
-                                View
-                            </button>
-
-                            <button>
-                                Apply
-                            </button>
+                            </div>
 
                         </div>
 
                     </div>
+                ))}
 
-                </div>
-
-                <div className="jobCard">
-
-                    <div>
-
-                        <h3>Backend Developer</h3>
-
-                        <p>IBM</p>
-
-                        <span className="skills">
-                            Java • Spring Boot • SQL
-                        </span>
-
-                    </div>
-
-                    <div className="jobRight">
-
-                        <p>Posted Yesterday</p>
-
-                        <h3>₹8 LPA</h3>
-
-                        <span className="notApplied">
-                            Not Applied
-                        </span>
-
-                        <div className="jobBtns">
-
-                            <button>
-                                View
-                            </button>
-
-                            <button>
-                                Apply
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
+            {selectedJob && (
+                <div className="overlay">
+
+                    <div className="modal">
+
+                        <div className="modalHeader">
+                            <h2>{selectedJob.title}</h2>
+                            <button
+                                className="closeBtn"
+                                onClick={() => setSelectedJob(null)}
+                            >
+                                ✖
+                            </button>
+                        </div>
+
+                        <div className="modalBody">
+
+                            <div className="detail">
+                                <span>Company</span>
+                                <p>{selectedJob.company}</p>
+                            </div>
+
+                            <div className="detail">
+                                <span>Salary</span>
+                                <p>₹ {selectedJob.salary}</p>
+                            </div>
+
+                            <div className="detail">
+                                <span>Qualification</span>
+                                <p>{selectedJob.qualification}</p>
+                            </div>
+
+                            <div className="detail">
+                                <span>Skills</span>
+                                <p>{selectedJob.skills}</p>
+                            </div>
+
+                            <div className="detail">
+                                <span>Experience</span>
+                                <p>{selectedJob.yearsOfExp} Years</p>
+                            </div>
+
+                            <div className="detail">
+                                <span>Posted</span>
+                                <p>{getTimeAgo(selectedJob.postedAt)}</p>
+                            </div>
+
+                            <div className="description">
+                                <span> Job Description</span>
+                                <p>{selectedJob.jobDesc}</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            )}
 
         </div>
 
