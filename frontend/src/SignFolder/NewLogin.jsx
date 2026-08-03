@@ -65,7 +65,6 @@ function NewLogin() {
             <div className="loginCard">
 
                 <h1>Welcome</h1>
-
                 <p>Create an account</p>
 
                 <form onSubmit={handleSubmit}>
