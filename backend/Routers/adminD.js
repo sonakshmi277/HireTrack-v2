@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const Admin = require("../Models/Admin");
 const jwt = require("jsonwebtoken");
-
 router.post("/", async (req, res) => {
     try {
         const admin = await Admin.findOne({
