@@ -1,8 +1,4 @@
-require("dotenv").config();
-const mongoose = require("mongoose")
-mongoose.connect(process.env.MONGO_URI)
-    .then(()=>console.log("MongoDB conn"))
-    .catch((err) => console.log(err))
+const mongoose = require("mongoose");
 
 const adminDetails = new mongoose.Schema({
     company: String,
@@ -11,4 +7,5 @@ const adminDetails = new mongoose.Schema({
 });
 
 const Admin = mongoose.model("Admin", adminDetails);
+
 module.exports = Admin;

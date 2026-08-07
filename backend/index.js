@@ -19,25 +19,24 @@ app.use("/adminData", adminRouter)
 app.use("/signIn", userRouter)
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-const addAdmin = async () => {
-  const exists = await Admin.findOne({ password: "IAMADMIN" });
+    .then(async () => {
+        console.log("MongoDB Connected");
 
-  if (!exists) {
-    await Admin.create({
-      company: "Cognizant",
-      email: "admin@gmail.com",
-      password: "IAMADMIN"
+        const exists = await Admin.findOne({ password: "IAMADMIN" });
+
+        if (!exists) {
+            await Admin.create({
+                company: "Cognizant",
+                email: "admin@gmail.com",
+                password: "IAMADMIN"
+            });
+
+            console.log("Admin created");
+        }
+    })
+    .catch((err) => {
+        console.log("MongoDB connection error:", err);
     });
-
-    console.log("Admin created");
-  }
-};
 
 app.post("/newLogIn", async (req, res) => {
   try {
@@ -59,7 +58,6 @@ app.post("/newLogIn", async (req, res) => {
 });
 
 
-addAdmin();
 
 app.get("/adminHomePage", auth, (req, res) => {
   res.status(200).json({
