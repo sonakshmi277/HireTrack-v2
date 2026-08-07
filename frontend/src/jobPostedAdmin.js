@@ -69,7 +69,7 @@ function JobPostedAdmin() {
       .catch((err) => console.log(err))
 
 
-  }, []);
+  }, [navigate]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({

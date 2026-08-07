@@ -78,7 +78,7 @@ function UserHomePage() {
             .then(res => res.json())
             .then(data => setCounts(data))
             .catch(err => console.log(err));
-    }, []);
+    }, [navigate]);
     return (
 
         <div className={`app ${mode}`} >

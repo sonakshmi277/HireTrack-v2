@@ -29,7 +29,7 @@ function ApplicantsAdmin() {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [navigate]);
 
 function handleChange(id, e) {
 

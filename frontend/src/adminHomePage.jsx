@@ -132,7 +132,7 @@ function AdminHomePage() {
         }
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [navigate]);
 
   function handleJobClick() {
     navigate("/jobsAdmin");

@@ -97,7 +97,7 @@ function NewJobUser() {
 
             .catch(err => console.log(err));
 
-    }, []);
+    }, [navigate]);
 
     const handleUpload = async (file, jobId) => {
 

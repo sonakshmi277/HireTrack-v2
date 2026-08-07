@@ -33,7 +33,7 @@ function JobUser() {
             })
             .catch(err => console.log(err));
 
-    }, []);
+    }, [navigate]);
 
     return (
 
