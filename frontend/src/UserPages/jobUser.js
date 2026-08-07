@@ -14,7 +14,7 @@ function JobUser() {
 
         const token = localStorage.getItem("token");
 
-        fetch("http://localhost:5000/applidetail", {
+        fetch("https://hiretrack-v2.onrender.com/applidetail", {
             method: "GET",
             headers: {
                 authorization: token
@@ -117,7 +117,7 @@ function JobUser() {
 
                                         <a
 
-                                            href={`http://localhost:5000/${inf.resume}`}
+                                            href={`https://hiretrack-v2.onrender.com/${inf.resume}`}
 
                                             target="_blank"
 

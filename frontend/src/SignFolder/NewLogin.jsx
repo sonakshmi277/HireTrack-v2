@@ -20,7 +20,7 @@ function NewLogin() {
             return;
         }
 
-        fetch("http://localhost:5000/newLogIn", {
+        fetch("https://hiretrack-v2.onrender.com/newLogIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

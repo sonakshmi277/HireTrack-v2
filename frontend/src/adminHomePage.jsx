@@ -45,7 +45,7 @@ function AdminHomePage() {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/adminHomePage",
+    fetch("https://hiretrack-v2.onrender.com/adminHomePage",
       {
         method: "GET",
         headers: {
@@ -72,7 +72,7 @@ function AdminHomePage() {
       })
       .catch(err => console.log(err));
 
-    fetch("http://localhost:5000/applicationCounts", {
+    fetch("https://hiretrack-v2.onrender.com/applicationCounts", {
       headers: {
         authorization: token
       }
@@ -81,7 +81,7 @@ function AdminHomePage() {
       .then(data => setCounts(data))
       .catch(err => console.log(err));
 
-    fetch("http://localhost:5000/jobCount", {
+    fetch("https://hiretrack-v2.onrender.com/jobCount", {
       method: "GET",
       headers: { authorization: token }
     })
@@ -100,7 +100,7 @@ function AdminHomePage() {
       })
       .catch(err => console.log(err));
 
-    fetch("http://localhost:5000/recentJobs", {
+    fetch("https://hiretrack-v2.onrender.com/recentJobs", {
       method: "GET",
       headers: { authorization: token }
     })
@@ -118,7 +118,7 @@ function AdminHomePage() {
       })
       .catch(err => console.log(err));
 
-    fetch("http://localhost:5000/applidetail", {
+    fetch("https://hiretrack-v2.onrender.com/applidetail", {
       method: "GET",
       headers: { authorization: token }
     })
@@ -157,7 +157,7 @@ function AdminHomePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:5000/editJob/${formData.id}`, {
+    fetch(`https://hiretrack-v2.onrender.com/editJob/${formData.id}`, {
       method: "PATCH",
       headers: { authorization: token, "Content-Type": "application/json" },
       body: JSON.stringify(formData)
@@ -320,7 +320,7 @@ function AdminHomePage() {
             </span>
 
             <a
-              href={`http://localhost:5000/${applicant.resume}`}
+              href={`https://hiretrack-v2.onrender.com/${applicant.resume}`}
               target="_blank"
               rel="noopener noreferrer"
               className="resumeBtn" style={{ borderRadius: "45px" }}

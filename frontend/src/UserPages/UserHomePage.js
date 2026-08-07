@@ -52,7 +52,7 @@ function UserHomePage() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        fetch("http://localhost:5000/recentJobs", {
+        fetch("https://hiretrack-v2.onrender.com/recentJobs", {
             method: "GET",
             headers: { authorization: token }
         })
@@ -70,7 +70,7 @@ function UserHomePage() {
             })
             .catch(err => console.log(err));
 
-        fetch("http://localhost:5000/applicationCounts", {
+        fetch("https://hiretrack-v2.onrender.com/applicationCounts", {
             headers: {
                 authorization: token
             }

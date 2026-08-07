@@ -19,7 +19,7 @@ function SignIn() {
             return alert("Please fill all details");
         }
 
-        fetch("http://localhost:5000/signIn", {
+        fetch("https://hiretrack-v2.onrender.com/signIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

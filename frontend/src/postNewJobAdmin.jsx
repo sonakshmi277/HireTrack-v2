@@ -36,7 +36,7 @@ function PostNewJobAdmin() {
 
         const token = localStorage.getItem("token");
 
-        fetch("http://localhost:5000/postNewJob", {
+        fetch("https://hiretrack-v2.onrender.com/postNewJob", {
             method: "POST",
             headers: {
                 authorization: token,

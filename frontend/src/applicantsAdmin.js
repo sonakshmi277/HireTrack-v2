@@ -10,7 +10,7 @@ function ApplicantsAdmin() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/applidetail", {
+    fetch("https://hiretrack-v2.onrender.com/applidetail", {
       method: "GET",
       headers: {
         authorization: token
@@ -35,7 +35,7 @@ function handleChange(id, e) {
 
     const newStatus = e.target.value;
 
-    fetch("http://localhost:5000/changeDetail", {
+    fetch("https://hiretrack-v2.onrender.com/changeDetail", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -108,7 +108,7 @@ return (
                                     <td>
 
                                         <a
-                                            href={`http://localhost:5000/${inf.resume}`}
+                                            href={`https://hiretrack-v2.onrender.com/${inf.resume}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             className="resumeBtn"

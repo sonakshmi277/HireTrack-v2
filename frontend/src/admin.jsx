@@ -21,7 +21,7 @@ function Admin() {
             alert("Please fill all details");
             return;
         }
-        fetch("http://localhost:5000/adminData", {
+        fetch("https://hiretrack-v2.onrender.com/adminData", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

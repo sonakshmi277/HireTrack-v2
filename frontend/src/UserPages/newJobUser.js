@@ -39,7 +39,7 @@ function NewJobUser() {
 
         const token = localStorage.getItem("token");
 
-        fetch("http://localhost:5000/UserPages/newJobUser", {
+        fetch("https://hiretrack-v2.onrender.com/UserPages/newJobUser", {
 
             method: "GET",
 
@@ -67,7 +67,7 @@ function NewJobUser() {
 
                 console.log(data);
 
-                fetch("http://localhost:5000/availJobs", {
+                fetch("https://hiretrack-v2.onrender.com/availJobs", {
 
                     method: "GET",
 
@@ -111,7 +111,7 @@ function NewJobUser() {
         formData.append("resume", file);
         formData.append("job_id", jobId);
 
-        const res = await fetch("http://localhost:5000/uploadResume", {
+        const res = await fetch("https://hiretrack-v2.onrender.com/uploadResume", {
             method: "POST",
             headers: {
                 authorization: localStorage.getItem("token")
@@ -127,7 +127,7 @@ function NewJobUser() {
         alert(data.message);
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/availJobs", {
+        const response = await fetch("https://hiretrack-v2.onrender.com/availJobs", {
             method: "GET",
             headers: {
                 authorization: token

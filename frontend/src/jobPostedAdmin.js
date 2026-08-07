@@ -35,7 +35,7 @@ function JobPostedAdmin() {
   }
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:5000/UserPages/newJobUser",
+    fetch("https://hiretrack-v2.onrender.com/UserPages/newJobUser",
       {
         method: "GET",
         headers: {
@@ -52,7 +52,7 @@ function JobPostedAdmin() {
       })
       .then(data => {
         console.log(data)
-        fetch("http://localhost:5000/availJobs", {
+        fetch("https://hiretrack-v2.onrender.com/availJobs", {
           method: "GET",
           headers: {
             "Content-Type": "application/json", authorization: token
@@ -81,7 +81,7 @@ function JobPostedAdmin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:5000/editJob/${formData.id}`, {
+    fetch(`https://hiretrack-v2.onrender.com/editJob/${formData.id}`, {
       method: "PATCH",
       headers: { authorization: token, "Content-Type": "application/json" },
       body: JSON.stringify(formData)
@@ -119,7 +119,7 @@ function JobPostedAdmin() {
 
   function manageDelete(id) {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:5000/manageDel/${id}`, {
+    fetch(`https://hiretrack-v2.onrender.com/manageDel/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json", authorization: token }
     })
