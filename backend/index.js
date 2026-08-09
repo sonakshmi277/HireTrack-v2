@@ -41,6 +41,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.post("/newLogIn", async (req, res) => {
   try {
+    const exist=await User.findOne({email:req.body.email})
+    if(exist){
+      return res.status(400).json({error:"User already exists"})
+    }
     const tb = await User.create({
       email: req.body.email,
       password: req.body.password

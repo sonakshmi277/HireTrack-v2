@@ -19,7 +19,6 @@ function NewLogin() {
             alert("Please fill all details");
             return;
         }
-
         fetch("https://hiretrack-v2.onrender.com/newLogIn", {
             method: "POST",
             headers: {
@@ -38,7 +37,7 @@ function NewLogin() {
 
                 } else {
 
-                    alert("Invalid email or password");
+                    alert(data.error);
 
                 }
 
