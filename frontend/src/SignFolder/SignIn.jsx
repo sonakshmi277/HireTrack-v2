@@ -43,6 +43,7 @@ function SignIn() {
                 else {
 
                     console.log("Invalid user");
+                    alert("Incorrect details");
 
                 }
 
