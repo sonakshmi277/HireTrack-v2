@@ -147,7 +147,17 @@ app.get("/applidetail", auth, async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
+app.get("/appliIddetail", auth, async (req, res) => {
+  const userId=req.user._id
+  try {
+    const applicants = await applicant.find({"user_id":userId}).populate("job_id").populate("user_id");
+    console.log("Data found");
+    res.status(200).json(applicants)
 
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
 app.patch("/changeDetail", async (req, res) => {
   try {
     const updated = await applicant.findByIdAndUpdate(
