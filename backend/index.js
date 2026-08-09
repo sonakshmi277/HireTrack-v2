@@ -15,6 +15,7 @@ const applicant = require("./Models/Application");
 const auth = require("./middlewares/auth")
 const Job = require("./Models/Job");
 const Appli = require("./Models/Application");
+const user = require("./Models/User");
 app.use("/adminData", adminRouter)
 app.use("/signIn", userRouter)
 
@@ -222,6 +223,30 @@ app.get("/applicationCounts", auth, async (req, res) => {
       Appli.countDocuments({ status: "Rejected" }),
       Appli.countDocuments(),
       Appli.countDocuments({status:"Reviewing"})
+    ]);
+
+    res.json({
+      pending,
+      interview,
+      selected,
+      rejected,
+      appliCt,
+      reviewing
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+app.get("/userIdAppliCt", auth, async (req, res) => {
+  try {
+    const userId=req.user._id;
+    const [pending, interview, selected, rejected, appliCt,reviewing] = await Promise.all([
+      Appli.countDocuments({ user_id:userId,status: "Pending" }),
+      Appli.countDocuments({ user_id:userId,status: "Interview" }),
+      Appli.countDocuments({user_id:userId, status: "Selected" }),
+      Appli.countDocuments({ user_id:userId,status: "Rejected" }),
+      Appli.countDocuments({user_id:userId}),
+      Appli.countDocuments({user_id:userId,status:"Reviewing"})
     ]);
 
     res.json({

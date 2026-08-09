@@ -70,7 +70,8 @@ function UserHomePage() {
             })
             .catch(err => console.log(err));
 
-        fetch("https://hiretrack-v2.onrender.com/applicationCounts", {
+        fetch("https://hiretrack-v2.onrender.com/userIdAppliCt", {
+            method:"GET",
             headers: {
                 authorization: token
             }

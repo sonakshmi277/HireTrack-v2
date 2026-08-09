@@ -6,7 +6,7 @@ import "./jobUser.css";
 function JobUser() {
 
     const [info, setInfo] = useState([]);
-    const { mode} = useTheme();
+    const { mode } = useTheme();
     const [selectedAppli, setSelectedAppli] = useState(null);
     const navigate = useNavigate();
 
@@ -74,49 +74,29 @@ function JobUser() {
                     </thead>
 
                     <tbody>
-
-                        {
-
-                            info.map((inf) => (
-
-                                <tr key={inf._id}>
-
+                        {info.map((inf) => (
+                            <tr key={inf._id}>
                                     <td>
-
                                         <strong>
-
                                             {inf.job_id?.title}
-
                                         </strong>
-
                                     </td>
-
                                     <td>
-
                                         {inf.job_id?.company}
-
                                     </td>
 
                                     <td>
-
                                         ₹ {inf.job_id?.salary}
-
                                     </td>
 
                                     <td>
-
                                         <span className={`status ${inf.status.toLowerCase()}`}>
-
                                             {inf.status}
-
                                         </span>
-
                                     </td>
 
                                     <td>
-
                                         <a
-
                                             href={`https://hiretrack-v2.onrender.com/${inf.resume}`}
 
                                             target="_blank"
@@ -140,9 +120,7 @@ function JobUser() {
                                             className="viewBtn" onClick={() => setSelectedAppli(inf)}
 
                                         >
-
                                             👁
-
                                         </button>
 
                                     </td>
