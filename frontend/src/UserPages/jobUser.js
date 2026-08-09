@@ -14,7 +14,7 @@ function JobUser() {
 
         const token = localStorage.getItem("token");
 
-        fetch("https://hiretrack-v2.onrender.com/applidetail", {
+        fetch("https://hiretrack-v2.onrender.com/appliIddetail", {
             method: "GET",
             headers: {
                 authorization: token
